@@ -1,0 +1,406 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\interface\\istaffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\interface\\istaffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\repository\\staffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\repository\\staffmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\responsedtos\\staffresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:responsedtos\\staffresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\requestdtos\\staffrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:requestdtos\\staffrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\controllers\\searchcasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:controllers\\searchcasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\models\\indemnifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:models\\indemnifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\interface\\isearchcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\interface\\isearchcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\repository\\searchcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\repository\\searchcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\requestdtos\\casesearchrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:requestdtos\\casesearchrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\responsedtos\\searchcaseresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:responsedtos\\searchcaseresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\data\\casmandbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:data\\casmandbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\controllers\\createcasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:controllers\\createcasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\models\\t_case_prac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:models\\t_case_prac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\interface\\icreatecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\interface\\icreatecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\requestdtos\\createcasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:requestdtos\\createcasedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\repository\\storedprocedureexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\repository\\storedprocedureexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\interface\\ipractionerdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\interface\\ipractionerdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\repository\\practionerdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\repository\\practionerdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|c:\\users\\rupesh.kumar\\desktop\\casman\\dataaccess\\interface\\istoredprocedureexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98447AB3-9717-48B1-837E-C34CD1FC891E}|casman.csproj|solutionrelative:dataaccess\\interface\\istoredprocedureexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 214,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StaffRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\StaffRequestDto.cs",
+              "RelativeDocumentMoniker": "RequestDtos\\StaffRequestDto.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\StaffRequestDto.cs",
+              "RelativeToolTip": "RequestDtos\\StaffRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T05:10:43.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StaffResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\ResponseDtos\\StaffResponseDto.cs",
+              "RelativeDocumentMoniker": "ResponseDtos\\StaffResponseDto.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\ResponseDtos\\StaffResponseDto.cs",
+              "RelativeToolTip": "ResponseDtos\\StaffResponseDto.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T05:09:59.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "indemnifier.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\indemnifier.cs",
+              "RelativeDocumentMoniker": "Models\\indemnifier.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\indemnifier.cs",
+              "RelativeToolTip": "Models\\indemnifier.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T04:35:57.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StaffManager.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\StaffManager.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\StaffManager.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\StaffManager.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\StaffManager.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAiwBkAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T13:05:03.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IStaffManager.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IStaffManager.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Interface\\IStaffManager.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IStaffManager.cs",
+              "RelativeToolTip": "DataAccess\\Interface\\IStaffManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T13:04:34.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "staff.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\staff.cs",
+              "RelativeDocumentMoniker": "Models\\staff.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\staff.cs",
+              "RelativeToolTip": "Models\\staff.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T13:02:38.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SearchCaseController.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Controllers\\SearchCaseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SearchCaseController.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Controllers\\SearchCaseController.cs",
+              "RelativeToolTip": "Controllers\\SearchCaseController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAiwB0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T12:56:03.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ISearchCase.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\ISearchCase.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Interface\\ISearchCase.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\ISearchCase.cs",
+              "RelativeToolTip": "DataAccess\\Interface\\ISearchCase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T11:58:27.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CasmanDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Data\\CasmanDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\CasmanDbContext.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Data\\CasmanDbContext.cs",
+              "RelativeToolTip": "Data\\CasmanDbContext.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA7wAcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T06:42:47.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAowAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-12T06:39:19.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAywBgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T06:47:26.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CaseSearchRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\CaseSearchRequestDto.cs",
+              "RelativeDocumentMoniker": "RequestDtos\\CaseSearchRequestDto.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\CaseSearchRequestDto.cs",
+              "RelativeToolTip": "RequestDtos\\CaseSearchRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T11:56:43.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SearchCase.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\SearchCase.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\SearchCase.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\SearchCase.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\SearchCase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T11:58:47.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SearchCaseResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\ResponseDtos\\SearchCaseResponseDto.cs",
+              "RelativeDocumentMoniker": "ResponseDtos\\SearchCaseResponseDto.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\ResponseDtos\\SearchCaseResponseDto.cs",
+              "RelativeToolTip": "ResponseDtos\\SearchCaseResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T11:59:28.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CreateCaseController.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Controllers\\CreateCaseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CreateCaseController.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Controllers\\CreateCaseController.cs",
+              "RelativeToolTip": "Controllers\\CreateCaseController.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAABDwBYAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T10:22:26.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ICreateCase.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\ICreateCase.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Interface\\ICreateCase.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\ICreateCase.cs",
+              "RelativeToolTip": "DataAccess\\Interface\\ICreateCase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T10:03:08.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "t_case_prac.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\t_case_prac.cs",
+              "RelativeDocumentMoniker": "Models\\t_case_prac.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\Models\\t_case_prac.cs",
+              "RelativeToolTip": "Models\\t_case_prac.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T11:04:41.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CreateCaseDto.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\CreateCaseDto.cs",
+              "RelativeDocumentMoniker": "RequestDtos\\CreateCaseDto.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\RequestDtos\\CreateCaseDto.cs",
+              "RelativeToolTip": "RequestDtos\\CreateCaseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T09:52:56.077Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PractionerDetails.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\PractionerDetails.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\PractionerDetails.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\PractionerDetails.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\PractionerDetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T08:37:47.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IPractionerDetails.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IPractionerDetails.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Interface\\IPractionerDetails.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IPractionerDetails.cs",
+              "RelativeToolTip": "DataAccess\\Interface\\IPractionerDetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T08:37:31.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "StoredProcedureExecutor.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\StoredProcedureExecutor.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\StoredProcedureExecutor.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Repository\\StoredProcedureExecutor.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\StoredProcedureExecutor.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T06:59:26.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IStoredProcedureExecutor.cs",
+              "DocumentMoniker": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IStoredProcedureExecutor.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Interface\\IStoredProcedureExecutor.cs",
+              "ToolTip": "C:\\Users\\rupesh.kumar\\Desktop\\casman\\DataAccess\\Interface\\IStoredProcedureExecutor.cs",
+              "RelativeToolTip": "DataAccess\\Interface\\IStoredProcedureExecutor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T06:58:32.06Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

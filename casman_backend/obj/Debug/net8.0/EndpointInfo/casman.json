@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "casman",
+    "version": "1.0"
+  },
+  "paths": {
+    "/create": {
+      "post": {
+        "tags": [
+          "CreateCase"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCaseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SearchCase/search": {
+      "get": {
+        "tags": [
+          "SearchCase"
+        ],
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateCaseDto": {
+        "type": "object",
+        "properties": {
+          "prac_num": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_role": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_last_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_first_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_init": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_sex": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_def_org": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_tow": {
+            "type": "string",
+            "nullable": true
+          },
+          "prac_source": {
+            "type": "string",
+            "nullable": true
+          },
+          "user_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
