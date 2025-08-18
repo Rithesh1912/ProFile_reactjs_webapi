@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CasmanSln.Migrations
 {
     [DbContext(typeof(CasmanDbContext))]
-    [Migration("20250814105929_categorymodel")]
-    partial class categorymodel
+    [Migration("20250818120434_newtables2")]
+    partial class newtables2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,55 @@ namespace CasmanSln.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CasmanSln.Models.Area", b =>
+                {
+                    b.Property<string>("AreaDesc")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("AdultLimitationMonths")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AreaJurisdiction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BrainDamageLimitationMonths")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ChildrenLimitationMonths")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryGroup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryTax")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryUnit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CtryNominalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SortColumn")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("AreaDesc");
+
+                    b.ToTable("area");
+                });
 
             modelBuilder.Entity("CasmanSln.Models.Case", b =>
                 {
@@ -169,6 +218,23 @@ namespace CasmanSln.Migrations
                     b.ToTable("t_case_prac");
                 });
 
+            modelBuilder.Entity("CasmanSln.Models.CaseType", b =>
+                {
+                    b.Property<string>("case_type")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("type_desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("case_type");
+
+                    b.ToTable("caseType");
+                });
+
             modelBuilder.Entity("CasmanSln.Models.Category", b =>
                 {
                     b.Property<int>("Category_no")
@@ -190,6 +256,91 @@ namespace CasmanSln.Migrations
                     b.HasKey("Category_no");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.Country", b =>
+                {
+                    b.Property<string>("CountryCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CountryNominalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CountryCode");
+
+                    b.ToTable("country");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.MduLiability", b =>
+                {
+                    b.Property<string>("case_type")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("liab_desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("mdu_liability")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("case_type");
+
+                    b.ToTable("mduLiability");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.PracArea", b =>
+                {
+                    b.Property<int>("prac_area_code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("prac_area_code"));
+
+                    b.Property<string>("prac_area_desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("prac_area_code");
+
+                    b.ToTable("pracArea");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.Specialty", b =>
+                {
+                    b.Property<string>("SpcltyCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("ClaimsUse")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MemUse")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SpcltyDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SpcltyCode");
+
+                    b.ToTable("specialties");
                 });
 #pragma warning restore 612, 618
         }
