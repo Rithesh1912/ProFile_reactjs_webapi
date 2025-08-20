@@ -37,7 +37,7 @@ namespace CasmanSln.DataAccess.Repository
                     cmd.Parameters.AddWithValue("@PracSex", request.PracSex ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@PracDefOrg", request.PracDefOrg ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@PracTow", request.PracTow ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@PracSource", request.PracSource ?? (object)DBNull.Value);
+                   
                     cmd.Parameters.AddWithValue("@UserId", request.UserId ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CaseCreateSource", request.CaseCreateSource);
 

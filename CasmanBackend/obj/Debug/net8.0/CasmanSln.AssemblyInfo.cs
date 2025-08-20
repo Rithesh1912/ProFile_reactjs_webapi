@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CasmanSln")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+952fdf75b48c5d584d0bb7da0df1ff8b51b12145")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24e0314c5e94ae40867c525fba0fa21041c8aa67")]
 [assembly: System.Reflection.AssemblyProductAttribute("CasmanSln")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CasmanSln")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -426,6 +426,12 @@
         "additionalProperties": false
       },
       "CreateCaseRequestDto": {
+        "required": [
+          "pracDefOrg",
+          "pracLastName",
+          "pracRole",
+          "pracTow"
+        ],
         "type": "object",
         "properties": {
           "pracNum": {
@@ -433,16 +439,16 @@
             "nullable": true
           },
           "pracRole": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "mduUnit": {
             "type": "string",
             "nullable": true
           },
           "pracLastName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "pracFirstName": {
             "type": "string",
@@ -457,17 +463,12 @@
             "nullable": true
           },
           "pracDefOrg": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "pracTow": {
-            "type": "string",
-            "nullable": true
-          },
-          "pracSource": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "userId": {
             "type": "string",

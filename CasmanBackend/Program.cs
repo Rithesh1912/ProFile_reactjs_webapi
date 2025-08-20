@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 
 builder.Services.AddDbContext<CasmanDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("CasmanConnection")));
 builder.Services.AddEndpointsApiExplorer();
@@ -16,6 +20,14 @@ builder.Services.AddScoped<ICaseDetails, CaseDetails>();
 builder.Services.AddScoped<IPractionerDetails,PractionerDetails>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<ICaseRepository, CaseRepository>();
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CasmanFrontend",
+        policy => policy.WithOrigins("http://localhost:3000") // React dev server
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
 
 
 var app = builder.Build();
@@ -28,6 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CasmanFrontend");
 
 app.UseAuthorization();
 

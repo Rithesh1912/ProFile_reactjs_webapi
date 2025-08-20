@@ -1,12 +1,9 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CasmanSln.Models
+namespace CasmanSln.RequestDtos
 {
-   
-    public class Case
+    public class UpdateCaseRequestDto
     {
         [Key]
         [Column("case_id")]
@@ -19,16 +16,16 @@ namespace CasmanSln.Models
         public string? MduUnit { get; set; }
 
         [Column("case_type")]
-        public string CaseType {  get; set; }
+        public string CaseType { get; set; }
 
         [Column("case_cat")]
-        public string CaseCategory {  get; set; }
+        public string CaseCategory { get; set; }
 
         [Column("case_spl")]
-        public string CaseSpeciality {  get; set; }
+        public string CaseSpeciality { get; set; }
 
         [Column("case_prac")]
-        public string CasePractice {  get; set; }
+        public string CasePractice { get; set; }
 
         [Column("incdt_date")]
         public DateTime? IncdtDate { get; set; }
@@ -39,7 +36,7 @@ namespace CasmanSln.Models
         [Column("close_date")]
         public DateTime? CloseDate { get; set; }
 
-       
+
         [Column("second_scrt_usr")]
         public string? SecondScrtUsr { get; set; }
 
@@ -56,20 +53,18 @@ namespace CasmanSln.Models
         [Column("YearOfCase")]
         public int? YearOfCase { get; set; }
 
-       
+
         [Column("CLAIM_DATE")]
         public DateTime? ClaimDate { get; set; }
 
         [Column("Legal_case_Document_Status")]
         public string? LegalCaseDocumentStatus { get; set; }
 
-       
+
         [Column("Case_Create_Source")]
         public string? CaseCreateSource { get; set; }
 
         [Column("case_uri")]
         public string? CaseUri { get; set; }
-
-       
     }
 }
