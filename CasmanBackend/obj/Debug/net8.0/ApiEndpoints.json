@@ -2,14 +2,14 @@
   {
     "ContainingType": "CasmanSln.Controllers.CaseController",
     "Method": "CreateCase",
-    "RelativePath": "api/Case/api/CreateCase",
+    "RelativePath": "api/Case/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "newCase",
-        "Type": "CasmanSln.Models.Case",
+        "Name": "request",
+        "Type": "CasmanSln.Dtos.CreateCaseRequestDto",
         "IsRequired": true
       }
     ],
@@ -17,34 +17,29 @@
   },
   {
     "ContainingType": "CasmanSln.Controllers.CaseController",
-    "Method": "GetAllCaseDetails",
-    "RelativePath": "api/Case/GetAllCaseDetails",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "CasmanSln.Controllers.CaseController",
-    "Method": "GetCaseDetailsByCaseId",
-    "RelativePath": "api/Case/GetCaseDetailsByCaseID/{caseId}",
-    "HttpMethod": "GET",
+    "Method": "SearchCases",
+    "RelativePath": "api/Case/search",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "caseId",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "CasmanSln.RequestDtos.CaseSearchRequestDto",
         "IsRequired": true
-      },
-      {
-        "Name": "subId",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[CasmanSln.ResponseDtos.CaseSearchResponseDto, CasmanSln, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "CasmanSln.Controllers.PractionerController",
@@ -126,6 +121,22 @@
         "Name": "subId",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CasmanSln.Controllers.UserController",
+    "Method": "InsertUserAndStaff",
+    "RelativePath": "api/User/insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CasmanSln.Dtos.UserStaffDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

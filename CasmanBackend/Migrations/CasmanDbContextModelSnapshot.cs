@@ -68,7 +68,7 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("AreaDesc");
 
-                    b.ToTable("area");
+                    b.ToTable("t_area");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.Case", b =>
@@ -229,7 +229,7 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("case_type");
 
-                    b.ToTable("caseType");
+                    b.ToTable("t_caseType");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.Category", b =>
@@ -252,7 +252,7 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("Category_no");
 
-                    b.ToTable("Category");
+                    b.ToTable("t_Category");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.Country", b =>
@@ -277,7 +277,21 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("CountryCode");
 
-                    b.ToTable("country");
+                    b.ToTable("t_country");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.Department", b =>
+                {
+                    b.Property<string>("DeptId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DeptName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DeptId");
+
+                    b.ToTable("t_dept");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.MduLiability", b =>
@@ -297,7 +311,7 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("case_type");
 
-                    b.ToTable("mduLiability");
+                    b.ToTable("t_mduLiability");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.PracArea", b =>
@@ -317,7 +331,7 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("prac_area_code");
 
-                    b.ToTable("pracArea");
+                    b.ToTable("t_pracArea");
                 });
 
             modelBuilder.Entity("CasmanSln.Models.Specialty", b =>
@@ -337,7 +351,81 @@ namespace CasmanSln.Migrations
 
                     b.HasKey("SpcltyCode");
 
-                    b.ToTable("specialties");
+                    b.ToTable("t_specialties");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.Staff", b =>
+                {
+                    b.Property<string>("StaffNo")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DeptId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Team")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StaffNo");
+
+                    b.ToTable("t_staff");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.adv_team", b =>
+                {
+                    b.Property<int>("TeamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"));
+
+                    b.Property<string>("Dept_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeamId");
+
+                    b.ToTable("t_adv_team");
+                });
+
+            modelBuilder.Entity("CasmanSln.Models.app_user", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("appId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId");
+
+                    b.ToTable("t_app_user");
                 });
 #pragma warning restore 612, 618
         }

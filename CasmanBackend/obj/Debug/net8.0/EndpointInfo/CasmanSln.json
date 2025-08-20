@@ -5,48 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Case/GetAllCaseDetails": {
-      "get": {
-        "tags": [
-          "Case"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Case/GetCaseDetailsByCaseID/{caseId}": {
-      "get": {
-        "tags": [
-          "Case"
-        ],
-        "parameters": [
-          {
-            "name": "caseId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "subId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Case/api/CreateCase": {
+    "/api/Case/create": {
       "post": {
         "tags": [
           "Case"
@@ -55,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Case"
+                "$ref": "#/components/schemas/CreateCaseRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Case"
+                "$ref": "#/components/schemas/CreateCaseRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Case"
+                "$ref": "#/components/schemas/CreateCaseRequestDto"
               }
             }
           }
@@ -73,6 +32,63 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Case/search": {
+      "post": {
+        "tags": [
+          "Case"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseSearchRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseSearchRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseSearchRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CaseSearchResponseDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CaseSearchResponseDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CaseSearchResponseDto"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -209,237 +225,41 @@
           }
         }
       }
+    },
+    "/api/User/insert": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStaffDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStaffDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserStaffDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "Case": {
-        "type": "object",
-        "properties": {
-          "caseId": {
-            "type": "string",
-            "nullable": true
-          },
-          "subsidId": {
-            "type": "string",
-            "nullable": true
-          },
-          "mduUnit": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseType": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseStat": {
-            "type": "string",
-            "nullable": true
-          },
-          "scrtUsr": {
-            "type": "string",
-            "nullable": true
-          },
-          "offc": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseCat": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseClass": {
-            "type": "string",
-            "nullable": true
-          },
-          "spcltyMajCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "spcltyMinCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "hptlLoc": {
-            "type": "string",
-            "nullable": true
-          },
-          "haFpcName": {
-            "type": "string",
-            "nullable": true
-          },
-          "areaCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "pracAreaCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "incdtDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "openDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "closeDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "pymntDataAvail": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "reinsDataAvail": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "refDataAvail": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "caseNotesAvail": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "caseOfInt": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "haAprvd": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "mduReinsHal": {
-            "type": "string",
-            "nullable": true
-          },
-          "mficheNo": {
-            "type": "string",
-            "nullable": true
-          },
-          "cru": {
-            "type": "string",
-            "nullable": true
-          },
-          "firstPgLoc": {
-            "type": "string",
-            "nullable": true
-          },
-          "mduLiability": {
-            "type": "string",
-            "nullable": true
-          },
-          "oldCaseType": {
-            "type": "string",
-            "nullable": true
-          },
-          "secondScrtUsr": {
-            "type": "string",
-            "nullable": true
-          },
-          "userId": {
-            "type": "string",
-            "nullable": true
-          },
-          "dateLastUpdated": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "lockNo": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "fileClassCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "sharedCase": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "thirdScrtUsr": {
-            "type": "string",
-            "nullable": true
-          },
-          "facPostcode": {
-            "type": "string",
-            "nullable": true
-          },
-          "yearOfCase": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "redactCase": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "redactCaseRule": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseDocumentStatus": {
-            "type": "string",
-            "nullable": true
-          },
-          "clfnCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "claimDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "legalCaseDocumentStatus": {
-            "type": "string",
-            "nullable": true
-          },
-          "doiStatus": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseCreateSource": {
-            "type": "string",
-            "nullable": true
-          },
-          "retentionActionedDT": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "retentionActionedPolicyName": {
-            "type": "string",
-            "nullable": true
-          },
-          "advCloseDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "prodType": {
-            "type": "string",
-            "nullable": true
-          },
-          "caseUri": {
-            "type": "string",
-            "nullable": true
-          },
-          "missedKpiCode": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CasePractioner": {
         "type": "object",
         "properties": {
@@ -507,11 +327,63 @@
             "format": "date-time",
             "nullable": true
           },
-          "pracSource": {
+          "userId": {
             "type": "string",
             "nullable": true
           },
-          "coverType": {
+          "dateLastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaseSearchRequestDto": {
+        "type": "object",
+        "properties": {
+          "caseID": {
+            "type": "string",
+            "nullable": true
+          },
+          "subsidID": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaseSearchResponseDto": {
+        "type": "object",
+        "properties": {
+          "caseId": {
+            "type": "string",
+            "nullable": true
+          },
+          "subsidId": {
+            "type": "string",
+            "nullable": true
+          },
+          "mduUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "incdtDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "openDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "closeDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "secondScrtUsr": {
             "type": "string",
             "nullable": true
           },
@@ -524,67 +396,127 @@
             "format": "date-time",
             "nullable": true
           },
-          "lockNo": {
+          "thirdScrtUsr": {
+            "type": "string",
+            "nullable": true
+          },
+          "yearOfCase": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "ddrApplicable": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "ddrCoverType": {
-            "type": "string",
-            "nullable": true
-          },
-          "charmPolicyNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "charmPolicyVersion": {
-            "type": "string",
-            "nullable": true
-          },
-          "groupType": {
-            "type": "string",
-            "nullable": true
-          },
-          "groupNum": {
-            "type": "string",
-            "nullable": true
-          },
-          "orgName": {
-            "type": "string",
-            "nullable": true
-          },
-          "discReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "memberEntitled": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "dateNonIrishClaimMade": {
+          "claimDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "prodRefNoSubSegCode": {
+          "legalCaseDocumentStatus": {
             "type": "string",
             "nullable": true
           },
-          "donPolSelection": {
+          "caseCreateSource": {
             "type": "string",
             "nullable": true
           },
-          "memberEntitledDateModified": {
+          "caseUri": {
             "type": "string",
-            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCaseRequestDto": {
+        "type": "object",
+        "properties": {
+          "pracNum": {
+            "type": "string",
             "nullable": true
           },
-          "privateGpClaims": {
-            "type": "boolean",
+          "pracRole": {
+            "type": "string",
+            "nullable": true
+          },
+          "mduUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracLastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracFirstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracInit": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracSex": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracDefOrg": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracTow": {
+            "type": "string",
+            "nullable": true
+          },
+          "pracSource": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "caseCreateSource": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserStaffDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "staffId": {
+            "type": "string",
+            "nullable": true
+          },
+          "first_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "last_Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "deptId": {
+            "type": "string",
+            "nullable": true
+          },
+          "team": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "teamId": {
+            "type": "string",
+            "nullable": true
+          },
+          "modifiedBy": {
+            "type": "string",
             "nullable": true
           }
         },

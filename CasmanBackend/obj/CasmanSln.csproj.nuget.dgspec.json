@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CASMAN_App\\ProFile_reactjs_webapi\\CasmanBackend\\CasmanSln.csproj": {}
+    "C:\\Users\\rupesh.kumar\\Desktop\\CasmanSln\\CasmanBackend\\CasmanSln.csproj": {}
   },
   "projects": {
-    "D:\\CASMAN_App\\ProFile_reactjs_webapi\\CasmanBackend\\CasmanSln.csproj": {
+    "C:\\Users\\rupesh.kumar\\Desktop\\CasmanSln\\CasmanBackend\\CasmanSln.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CASMAN_App\\ProFile_reactjs_webapi\\CasmanBackend\\CasmanSln.csproj",
+        "projectUniqueName": "C:\\Users\\rupesh.kumar\\Desktop\\CasmanSln\\CasmanBackend\\CasmanSln.csproj",
         "projectName": "CasmanSln",
-        "projectPath": "D:\\CASMAN_App\\ProFile_reactjs_webapi\\CasmanBackend\\CasmanSln.csproj",
-        "packagesPath": "C:\\Users\\rithesh.s\\.nuget\\packages\\",
-        "outputPath": "D:\\CASMAN_App\\ProFile_reactjs_webapi\\CasmanBackend\\obj\\",
+        "projectPath": "C:\\Users\\rupesh.kumar\\Desktop\\CasmanSln\\CasmanBackend\\CasmanSln.csproj",
+        "packagesPath": "C:\\Users\\rupesh.kumar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rupesh.kumar\\Desktop\\CasmanSln\\CasmanBackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\rithesh.s\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rupesh.kumar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -88,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
 
@@ -14,11 +14,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICaseDetails, CaseDetails>();
 builder.Services.AddScoped<IPractionerDetails,PractionerDetails>();
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<ICaseRepository, CaseRepository>();
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
