@@ -70,6 +70,9 @@ namespace CasmanSln.Models
         [Column("case_uri")]
         public string? CaseUri { get; set; }
 
-       
+        [Column("mduLiability")]
+        public string? mduLiability { get; set; }
+
+
     }
 }

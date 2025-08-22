@@ -8,5 +8,9 @@ namespace CasmanSln.DataAccess.Interface
     {
         Task<CreateCaseResponseDto> CreateNewCaseAsync(CreateCaseRequestDto request);
         Task<List<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request);
+
+        Task<UpdateCaseResponseDto>UpdateCaseDetails(UpdateCaseRequestDto request);
+
+        Task<ViewCaseDetailsResponseDto> GetCaseDetailsByCaseId(string caseId, string subId);
     }
 }

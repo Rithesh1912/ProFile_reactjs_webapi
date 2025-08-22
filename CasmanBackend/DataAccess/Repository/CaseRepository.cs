@@ -1,10 +1,13 @@
-﻿using CasmanSln.DataAccess.Interface;
+﻿using Azure.Core;
+using CasmanSln.DataAccess.Interface;
 using CasmanSln.Dtos;
+using CasmanSln.Models;
 using CasmanSln.RequestDtos;
 using CasmanSln.ResponseDtos;
 using Microsoft.Data.SqlClient; // Or System.Data.SqlClient depending on your setup
 using System.Data;
 using System.Text.RegularExpressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CasmanSln.DataAccess.Repository
 {
@@ -112,6 +115,88 @@ namespace CasmanSln.DataAccess.Repository
             }
 
             return results;
+        }
+
+        public async Task<UpdateCaseResponseDto>UpdateCaseDetails(UpdateCaseRequestDto request)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = new SqlCommand("CD_SP_CASE_PRU", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@CaseId", request.CaseId);
+                cmd.Parameters.AddWithValue("@SubsidId", (object?)request.SubsidId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@MduUnit", (object?)request.Department ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@CaseType", request.CaseType);
+                cmd.Parameters.AddWithValue("@mduLiability", request.MduLiability ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@CaseCategory", request.CaseCategory);
+                cmd.Parameters.AddWithValue("@CaseSpeciality", request.CaseSpeciality);
+                cmd.Parameters.AddWithValue("@CasePractice", request.CasePractice);
+                cmd.Parameters.AddWithValue("@CaseHandler1", (object?)request.caseHandler1 ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@CaseHandler2", (object?)request.caseHandler2 ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@ThirdScrtUsr", (object?)request.ThirdScrtUsr ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@IncdtDate", (object?)request.IncdtDate ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@ClaimDate", (object?)request.ClaimDate ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@CloseDate", (object?)request.CloseDate ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@DateLastUpdated", DateTime.Now);
+                cmd.Parameters.AddWithValue("@LegalCaseDocumentStatus", (object?)request.LegalCaseDocumentStatus ?? DBNull.Value);
+
+                await conn.OpenAsync();
+
+                var reader = await cmd.ExecuteReaderAsync();
+                string message = "Case updated successfully";
+                if (await reader.ReadAsync())
+                {
+                    message = reader["Message"].ToString();
+                }
+
+                return new UpdateCaseResponseDto { Message = message };
+            }
+
+        }
+        public async Task<ViewCaseDetailsResponseDto> GetCaseDetailsByCaseId(string caseId, string subId)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = new SqlCommand("CD_SP_CASEGENERALDETAILS_RTR", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CaseId", caseId);
+                cmd.Parameters.AddWithValue("@SubsidId", subId);
+
+                await conn.OpenAsync();
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+
+
+                    ViewCaseDetailsResponseDto caseDetails = null;
+
+                    if (await reader.ReadAsync())
+                    {
+                        caseDetails = new ViewCaseDetailsResponseDto
+                        {
+                            CaseId = reader["CaseId"].ToString(),
+                            SubsidId = reader["SubsidId"].ToString(),
+                            Department = reader["MduUnit"].ToString(),
+                            CaseType = reader["CaseType"].ToString(),
+                            MduLiability = reader["MduLiability"].ToString(),
+                            CaseCategory = reader["CaseCategory"].ToString(),
+                            CaseSpeciality = reader["CaseSpeciality"].ToString(),
+                            CasePractice = reader["CasePractice"].ToString(),
+                            IncdtDate = reader["IncdtDate"] as DateTime?,
+
+                            CaseHandler1 = reader["CaseHandler1"].ToString(),
+                            CaseHandler2 = reader["CaseHandler2"].ToString(),
+
+                            ClaimDate = reader["ClaimDate"] as DateTime?,
+
+                            LegalCaseDocumentStatus = reader["LegalCaseDocumentStatus"].ToString()
+                        };
+                    }
+
+                    return caseDetails;
+                }
+            }
+
         }
 
     }
