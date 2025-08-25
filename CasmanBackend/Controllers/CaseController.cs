@@ -12,10 +12,12 @@ namespace CasmanSln.Controllers
     public class CaseController : ControllerBase
     {
         private readonly ICaseRepository _caseRepository;
+       
 
         public CaseController(ICaseRepository caseRepository)
         {
             _caseRepository = caseRepository;
+           
         }
 
         // POST: api/case/create
@@ -58,6 +60,39 @@ namespace CasmanSln.Controllers
             }
 
             return Ok(cases);
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateCase([FromBody] UpdateCaseRequestDto request)
+        {
+            if (request == null)
+                return BadRequest("Invalid request data.");
+
+            try
+            {
+                UpdateCaseResponseDto response = await _caseRepository.UpdateCaseDetails(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while updating the case.", error = ex.Message });
+            }
+        }
+       
+        [HttpGet("GetCaseDetailsByCaseId/{caseId}/{subId}")]
+        public async Task<IActionResult> GetCaseDetailsByCaseId(string caseId,string subId)
+        {
+            if(caseId == null || subId == null)
+                return BadRequest("CaseId and SubId are Required");
+            try
+            {
+                ViewCaseDetailsResponseDto response = await _caseRepository.GetCaseDetailsByCaseId(caseId,subId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while retriving the case details.", error = ex.Message });
+            }
         }
     }
 
