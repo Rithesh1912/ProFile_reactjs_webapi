@@ -2,88 +2,135 @@ import React, { useState } from "react";
 import "./General.css";
 import save from "../../Assets/save_goto_gen_details.gif";
 import cancel from "../../Assets/cancel.gif";
-import submit from "../../Assets/submit.gif"
+import submit from "../../Assets/submit.gif";
 import axios from "axios";
 import getpostcode from "../../Assets/getpostcode.gif";
 import clear from "../../Assets/clear.gif";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from 'react';
+import CaseHeader from "../CaseHeader/CaseHeader";
 
 function General() {
-  
+  const [searchParams] = useSearchParams();
+  const caseId = searchParams.get("caseId");
+  const subId = searchParams.get("subId");
+
   const [formData, setFormData] = useState({
-    type: "",
-    mduLiability: "",
-    caseDocumentStatus: "Electronic",
-    legalCaseDocumentStatus: "Electronic",
-    dateOfIncident: "",
-    dateOfNotification: "",
-    dateClaimIntimated: "",
-    caseOrigin: "Casman",
+    caseId: caseId || "",
+    subsidId: subId || "",
     department: "",
-    caseHandler1: "",
-    caseHandler2: "",
+    caseType: "",
+    mduLiability: "",
     caseCategory: "",
     caseSpeciality: "",
     casePractice: "",
-    caseFileClassification: "",
-    country: "",
-    location: "",
-    facilityPostcode: "",
-    scanningId: ""
+    caseHandler1: "",
+    caseHandler2: "",
+    incdtDate: "",        
+    claimDate: "",
+    legalCaseDocumentStatus: "Electronic"
   });
+   
+ useEffect(() => {
+  console.log("caseId:", caseId, "subId:", subId);
+  if (caseId && subId) {
+    axios
+      .get(`https://localhost:7277/api/Case/GetCaseDetailsByCaseId/${caseId}/${subId}`)
+      .then((res) => {
+        const data = res.data;
+        
+        setFormData((prev) => ({
+          ...prev,
+          ...data,
+          incdtDate: data.incdtDate ? data.incdtDate.split("T")[0] : "",
+          claimDate: data.claimDate ? data.claimDate.split("T")[0] : "",
+          
+        }));
+      })
+      .catch((err) => console.error("Error fetching case:", err));
+  }
+}, [caseId, subId]);
 
-  
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-    if (!formData.type) {
-      alert("Type is required.");
-      return;
-    }
-    if (!formData.dateOfIncident) {
-      alert("Date of Incident is required.");
-      return;
-    }
+   
+    const payload = {
+      ...formData,
+      incdtDate: formData.incdtDate
+        ? new Date(formData.incdtDate).toISOString()
+        : null,
+      claimDate: formData.claimDate
+        ? new Date(formData.claimDate).toISOString()
+        : null,
+      closeDate: formData.closeDate
+        ? new Date(formData.closeDate).toISOString()
+        : null,
+      dateLastUpdated: formData.dateLastUpdated
+        ? new Date(formData.dateLastUpdated).toISOString()
+        : null,
+      dateClaimIntimated: formData.dateClaimIntimated
+        ? new Date(formData.dateClaimIntimated).toISOString()
+        : null,
+    };
+
+    console.log("Submitting data:", payload);
 
     try {
-       const response = await axios.post(
-    "api url", 
-    formData, 
-    {
-      headers: { "Content-Type": "application/json" }
-    }
-  );
+      const response = await axios.put(
+        "https://localhost:7277/api/Case/update",
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to save case");
-      }
-
-      const data = await response.json();
       alert("Case saved successfully!");
-      console.log("Saved data:", data);
+      console.log("Saved data:", response.data);
     } catch (error) {
+      console.error(error);
       alert("Error: " + error.message);
     }
   };
 
   return (
+     <div>
+      
+      <CaseHeader
+        caseId={formData.caseId}
+        subId={formData.subsidId}
+        status={formData.status}
+        liability={formData.mduLiability}
+        handler={formData.caseHandler1}
+        practitioner={formData.leadPractitioner}
+      />
     <form className="general-container" onSubmit={handleSubmit}>
       <h3 className="form-title-general">General</h3>
 
       <div className="form-grid">
-        
+        {/* LEFT SIDE */}
         <div>
           <div className="form-row">
-            <label>Type *</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
+            <label>Case Type *</label>
+            <select
+              name="caseType"
+              value={formData.caseType}
+              onChange={handleChange}
+            >
               <option value="">Select</option>
-              <option value="type1">Type 1</option>
-              <option value="type2">Type 2</option>
+              <option value="Advice">Advice</option>
+              <option value="Assistance">Assistance</option>
+              <option value="Claim">Claim</option>
+              <option value="Duplicate">Duplicate</option>
+              <option value="Old">Old</option>
             </select>
           </div>
 
@@ -95,20 +142,11 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-
-          <div className="form-row">
-            <label>Case Document Status *</label>
-            <select
-              name="caseDocumentStatus"
-              value={formData.caseDocumentStatus}
-              onChange={handleChange}
-            >
-              <option value="Electronic">Electronic</option>
-              <option value="Paper">Paper</option>
+              <option value="Actual Claim">Actual Claim</option>
+              <option value="No Indemnity">No Indemnity</option>
+              <option value="Potential Claim">Potential Claim</option>
+              <option value="Unassigned">Unassigned</option>
+              <option value="None">None</option>
             </select>
           </div>
 
@@ -121,17 +159,24 @@ function General() {
             >
               <option value="Electronic">Electronic</option>
               <option value="Paper">Paper</option>
+              <option value="Hybrid">Hybrid</option>
             </select>
           </div>
 
           <div className="form-row">
-            <label>Department *</label>
+            <label>Department*</label>
             <select
               name="department"
               value={formData.department}
               onChange={handleChange}
+              required
             >
               <option value="">Select</option>
+              <option value="SUPPORT">SUPPORT</option>
+              <option value="DENTAL">Dental</option>
+              <option value="LEGAL">LEGAL</option>
+              <option value="ADVISORY">ADVISORY</option>
+              <option value="ACCOUNTS">ACCOUNTS</option>
             </select>
           </div>
 
@@ -143,6 +188,11 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
+              <option value="Rupesh">Rupesh</option>
+              <option value="Rithesh">Rithesh</option>
+              <option value="Vignesh">Vignesh</option>
+              <option value="Yeswanth">Yeswanth</option>
+              <option value="Robin">Robin</option>
             </select>
           </div>
 
@@ -154,18 +204,23 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
+              <option value="Rupesh">Rupesh</option>
+              <option value="Rithesh">Rithesh</option>
+              <option value="Vignesh">Vignesh</option>
+              <option value="Yeswanth">Yeswanth</option>
+              <option value="Robin">Robin</option>
             </select>
           </div>
         </div>
 
-        
+        {/* RIGHT SIDE */}
         <div>
           <div className="form-row">
             <label>Date of Incident *</label>
             <input
               type="date"
-              name="dateOfIncident"
-              value={formData.dateOfIncident}
+              name="incdtDate"
+              value={formData.incdtDate}
               onChange={handleChange}
             />
           </div>
@@ -174,8 +229,8 @@ function General() {
             <label>Date of Notification *</label>
             <input
               type="date"
-              name="dateOfNotification"
-              value={formData.dateOfNotification}
+              name="claimDate"
+              value={formData.claimDate}
               onChange={handleChange}
             />
           </div>
@@ -190,7 +245,7 @@ function General() {
             />
           </div>
 
-          <div className="form-row">
+          {/* <div className="form-row">
             <label>Case Origin</label>
             <input
               type="text"
@@ -199,7 +254,7 @@ function General() {
               value={formData.caseOrigin}
               onChange={handleChange}
             />
-          </div>
+          </div> */}
 
           <div className="form-row">
             <label>Case Category *</label>
@@ -209,6 +264,10 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
+              <option value="Clinical">Clinical</option>
+              <option value="Non-Clinical">Non-Clinical</option>
+              <option value="Legal">Legal</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
@@ -220,6 +279,11 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Oncology">Oncology</option>
+              <option value="Pediatrics">Pediatrics</option>
             </select>
           </div>
 
@@ -231,24 +295,17 @@ function General() {
               onChange={handleChange}
             >
               <option value="">Select</option>
-            </select>
-          </div>
-
-          <div className="form-row">
-            <label>Case File Classification</label>
-            <select
-              name="caseFileClassification"
-              value={formData.caseFileClassification}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
+              <option value="General Practice">General Practice</option>
+              <option value="Specialist Practice">Specialist Practice</option>
+              <option value="Hospital">Hospital</option>
+              <option value="Clinic">Clinic</option>
+              <option value="Other">Other</option>
             </select>
           </div>
         </div>
       </div>
 
-      
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Country *</label>
         <select
           name="country"
@@ -256,10 +313,16 @@ function General() {
           onChange={handleChange}
         >
           <option value="">Select</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="United States">United States</option>
+          <option value="Canada">Canada</option>
+          <option value="Australia">Australia</option>
+          <option value="India">India</option>
+          <option value="Other">Other</option>
         </select>
-      </div>
+      </div> */}
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Location (Hospital/Clinic/Practice)</label>
         <input
           type="text"
@@ -277,11 +340,15 @@ function General() {
           value={formData.facilityPostcode}
           onChange={handleChange}
         />
-        <button className="button-group"><img src={getpostcode} alt="postcode"></img></button>
-        <button className="button-group"><img src={clear} alt="postcode"></img></button>
-      </div>
+        <button className="button-group">
+          <img src={getpostcode} alt="postcode"></img>
+        </button>
+        <button className="button-group">
+          <img src={clear} alt="postcode"></img>
+        </button>
+      </div> */}
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Scanning ID</label>
         <input
           type="text"
@@ -289,18 +356,15 @@ function General() {
           value={formData.scanningId}
           onChange={handleChange}
         />
-      </div>
+      </div> */}
 
-      
       <div className="button-group">
         <button type="submit">
           <img src={submit} alt="submit" />
         </button>
-        {/* <button type="button" onClick={() => alert("Cancel action")}>
-          <img src={cancel} alt="Cancel" />
-        </button> */}
       </div>
     </form>
+    </div>
   );
 }
 

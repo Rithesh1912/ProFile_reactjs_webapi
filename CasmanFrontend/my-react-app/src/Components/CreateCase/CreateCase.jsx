@@ -21,7 +21,8 @@ function CreateCase() {
   const [flexPartySummary, setFlexPartySummary] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [speciality, setSpeciality] = useState("");
-  const [role, setRole] = useState("");
+  const [Role, setRole] = useState("");
+  const userId = "robin"; // Replace with actual user ID logic
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,25 +44,30 @@ function CreateCase() {
     //   alert("Role is required.");
     //   return;
     // }
+    const generatePracNum = () => {
+  return "PRAC-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+};
 
 
-    const payload = {
-      practitionerType: selectedOption,
-      pracNumber,
-      surname,
-      forename,
-      initials,
-      sex,
-      warnings: selectedOption === "known" || selectedOption === "other" ? warnings : undefined,
-      flexPartySummary: selectedOption === "member" ? flexPartySummary : undefined,
-      identifier,
-      speciality,
-      role,
-    };
+const payload = {
+  PracNum: generatePracNum(),
+  PracRole: "Lead",
+  // MduUnit: mduUnit,
+  PracLastName: surname,
+  PracFirstName: forename,
+  PracInit: initials,
+  PracSex: sex,
+  PracDefOrg: identifier,
+  PracTow: speciality,
+  // PracSource: pracSource,
+  UserId: userId,
+  CaseCreateSource: "Casman"
+};
+console.log("Payload to be sent:", payload);
 
     try {
       const response = await axios.post(
-        "api url",
+        "https://localhost:7277/api/Case/create",
         payload,
         {
           headers: {
@@ -69,15 +75,18 @@ function CreateCase() {
           }
         }
       );
+      console.log("Response from server:", response);
 
-      if (!response.ok) {
+      if (response.status !=200) {
         throw new Error("Failed to save case");
       }
 
-      const data = await response.json();
+      const data = await response.data;
+      const caseId = data.caseID;
+      const subId = data.subID;
       alert("Case saved successfully!");
-      console.log("Saved data:", data);
-      navigate("/general");
+      console.log("Saved data:", caseId, subId);
+      navigate(`/general?caseId=${caseId}&subId=${subId}`);
 
 
     } catch (error) {
@@ -213,15 +222,15 @@ function CreateCase() {
         >
           <option value="">Select</option>
           
-          <option value="id1">MDU</option>
-          <option value="id2">MDU Connect </option>
-          <option value="id3">Blank </option>
-          <option value="id4">GP ELS </option>
-          <option value="id5">GP FLS </option>
-          <option value="id6">Group </option>
-          <option value="id7">MDDUS </option>
-          <option value="id8">MPS </option>
-          <option value="id9">Other </option>
+          <option value="MDU">MDU</option>
+          <option value="MDU Connect ">MDU Connect </option>
+          <option value="Blank">Blank </option>
+          <option value="GP ELS">GP ELS </option>
+          <option value="GP FLS">GP FLS </option>
+          <option value="Group">Group </option>
+          <option value="MDDUS">MDDUS </option>
+          <option value="MPS">MPS </option>
+          <option value="Other">Other </option>
         </select>
       </div>
 
@@ -234,17 +243,17 @@ function CreateCase() {
         >
           <option value="">Select</option>
           
-          <option value="spec1">ADVANCED NURSE PRACTITIONER </option>
-          <option value="spec2">ALTERNATIVE MEDICINE</option>
-          <option value="spec3">CARDIAC SURGERY</option>
-          <option value="spec4">BASICS</option>
-          <option value="spec5">AUDIOLOGICAL MEDICINE</option>
-          <option value="spec6">ANAESTHETICS</option>
+          <option value="ADVANCED NURSE PRACTITIONER">ADVANCED NURSE PRACTITIONER </option>
+          <option value="ALTERNATIVE MEDICINE">ALTERNATIVE MEDICINE</option>
+          <option value="CARDIAC SURGERY">CARDIAC SURGERY</option>
+          <option value="BASICS">BASICS</option>
+          <option value="AUDIOLOGICAL MEDICINE">AUDIOLOGICAL MEDICINE</option>
+          <option value="ANAESTHETICS">ANAESTHETICS</option>
         </select>
         <label>Role *</label>
         <input
           type="text"
-          value="lead"
+          value="Lead"
           onChange={(e) => setRole(e.target.value)}
           disabled={true}
           required
@@ -252,7 +261,7 @@ function CreateCase() {
       </div>
 
       <div className="button-group">
-        <button type="submit" name="saveandgotogeneraldetails">
+        <button type="submit" name="saveandgotogeneraldetails" onClick={handleSubmit}>
           <img src={save} alt="Save" />
         </button>
         <button type="button" name="cancel" onClick={() => alert("Cancel action here")}>

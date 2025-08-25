@@ -4,32 +4,16 @@ import casedetails from "../../Assets/case_details.gif";
 import cancelimage from "../../Assets/cancel.jpg";
 import search from "../../Assets/search.gif";
 import axios from "axios";
+import { Link } from 'react-router-dom';
+
 
 const CaseSearch = () => {
   const [caseID, setCaseID] = useState('');
   const [subID, setSubID] = useState('');
-  const [results, setResults] = useState([]); // 
+  const [results, setResults] = useState([]);
 
   const handleCaseIDChange = (e) => setCaseID(e.target.value);
   const handleSubIDChange = (e) => setSubID(e.target.value);
-
-  const handleCaseDetailsClick = () => {
-    if (!caseID) {
-      alert("Please enter a CaseID to get case details.");
-      return;
-    }
-
-    axios
-      .get("/test.json")
-      .then((response) => {
-        
-        const record = response.data.find(user => user.CaseID.toString() === caseID);
-        setResults(record ? [record] : []);
-      })
-      .catch((error) => {
-        console.error("Error fetching case details:", error);
-      });
-  };
 
   const handleSearchClick = () => {
     if (!caseID && !subID) {
@@ -37,19 +21,21 @@ const CaseSearch = () => {
       return;
     }
 
-    // axios
-    //   .get("https://jsonplaceholder.typicode.com/users") // dummy API
-    //   .then((response) => {
-    //     // Filter locally
-    //     const filtered = response.data.filter(user =>
-    //       (!caseID || user.id.toString() === caseID) &&
-    //       (!subID || user.username.toLowerCase().includes(subID.toLowerCase()))
-    //     );
-    //     setResults(filtered);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching case details:", error);
-    //   });
+    // Match backend CaseSearchRequestDto properties
+    const requestDto = {
+      caseID: caseID || null,
+      subsidID: subID || null
+    };
+
+    axios
+      .post("https://localhost:7277/api/Case/search", requestDto)
+      .then((response) => {
+        setResults(response.data || []);
+      })
+      .catch((error) => {
+        console.error("Error searching case details:", error);
+        setResults([]);
+      });
   };
 
   const handleCancelClick = () => {
@@ -76,9 +62,6 @@ const CaseSearch = () => {
           value={subID}
           onChange={handleSubIDChange}
         />
-        <button className='casedetails' onClick={handleCaseDetailsClick}>
-          <img src={casedetails} alt="Case Details" />
-        </button>
         <button className='search' onClick={handleSearchClick}>
           <img src={search} alt="Search" />
         </button>
@@ -87,22 +70,31 @@ const CaseSearch = () => {
         </button>
       </div>
 
-      
       {results.length > 0 && (
-        <table border="1" style={{ marginTop: "30px", width: "70%" }}>
+        <table border="1" style={{ marginTop: "30px", width: "90%" }}>
           <thead>
             <tr>
               <th>Case ID</th>
               <th>Sub ID</th>
-              
+              <th>MDU Unit</th>
+              <th>Incident Date</th>
+              <th>Open Date</th>
+              <th>Close Date</th>
+              <th>User ID</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {results.map((item) => (
-              <tr key={item.CaseID}>
-                <td>{item.CaseID}</td>
-                <td>{item.SubID}</td>
-                
+            {results.map((item, index) => (
+              <tr key={index}>
+                <td><Link to={`/General?caseId=${item.caseId}&subId=${item.subsidId}`}>{item.caseId}</Link></td>
+                <td>{item.subsidId}</td>
+                <td>{item.mduUnit}</td>
+                <td>{item.incdtDate ? new Date(item.incdtDate).toLocaleDateString() : ''}</td>
+                <td>{item.openDate ? new Date(item.openDate).toLocaleDateString() : ''}</td>
+                <td>{item.closeDate ? new Date(item.closeDate).toLocaleDateString() : ''}</td>
+                <td>{item.userId}</td>
+                <td>{item.legalCaseDocumentStatus}</td>
               </tr>
             ))}
           </tbody>
