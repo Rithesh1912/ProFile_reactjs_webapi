@@ -27,6 +27,15 @@ namespace CasmanSln.Models
 
         public DbSet<Department> t_dept {  get; set; }
 
+        public DbSet<Indemnifier> t_def_org { get; set; }
+
+        public DbSet<Specialty> t_spclty { get; set; }
+
+        public DbSet<Status> t_case_stat { get; set; }
+
+        public DbSet<CasePractice> t_case_practice {  get; set; }
+
+        public DbSet<FileClassification> t_file_classification { get; set; }
 
 
     }

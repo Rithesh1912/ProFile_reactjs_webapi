@@ -9,6 +9,6 @@ namespace CasmanSln.Models
         public int mdu_liability { get; set; }
 
         public string liab_desc { get; set; }
-        public bool valid { get; set; } 
+        public char valid { get; set; } 
     }
 }

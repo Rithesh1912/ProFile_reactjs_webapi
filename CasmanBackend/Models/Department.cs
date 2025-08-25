@@ -7,6 +7,8 @@ namespace CasmanSln.Models
         [Key]
         public string DeptId {  get; set; }
         public string DeptName {  get; set; }
+        public string valid { get; set; }
+        public string depatAdAccount { get; set; }
 
     }
 }

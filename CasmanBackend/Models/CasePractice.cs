@@ -2,11 +2,14 @@
 
 namespace CasmanSln.Models
 {
-    public class CaseType
+    public class CasePractice
     {
         [Key]
-        public string case_type { get; set; }
-        public string type_desc { get; set; }
+        public int prac_area_code {  get; set; }
+        public string prac_area_desc { get; set; }
+
         public char valid { get; set; }
+
+
     }
 }

@@ -19,7 +19,7 @@ namespace CasmanSln.Models
         public int? ChildrenLimitationMonths { get; set; }
         public int? BrainDamageLimitationMonths { get; set; }
 
-        public bool Valid { get; set; }
+        public char Valid { get; set; }
     }
 
 }

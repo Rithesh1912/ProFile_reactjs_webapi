@@ -1,6 +1,7 @@
 using CasmanSln.DataAccess.Interface;
 using CasmanSln.DataAccess.Repository;
 using CasmanSln.Models;
+using CasmanSln.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddScoped<ICaseDetails, CaseDetails>();
 builder.Services.AddScoped<IPractionerDetails,PractionerDetails>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<ICaseRepository, CaseRepository>();
+builder.Services.AddScoped<IDrpdwns, Drpdwns>();
 // Add CORS policy
 builder.Services.AddCors(options =>
 {

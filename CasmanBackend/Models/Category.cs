@@ -11,6 +11,6 @@ namespace CasmanSln.Models
 
         public int cat_nominal_code { get; set; }
 
-        public int valid {  get; set; }
+        public char valid {  get; set; }
     }
 }

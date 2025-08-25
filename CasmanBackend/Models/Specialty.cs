@@ -7,8 +7,8 @@ namespace CasmanSln.Models
         [Key]
         public string SpcltyCode { get; set; }   
         public string SpcltyDesc { get; set; }   
-        public bool ClaimsUse { get; set; }      
-        public bool MemUse { get; set; }         
+        public char ClaimsUse { get; set; }      
+        public char MemUse { get; set; }         
     }
 
 }

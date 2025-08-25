@@ -2,11 +2,12 @@
 
 namespace CasmanSln.Models
 {
-    public class CaseType
+    public class FileClassification
     {
         [Key]
-        public string case_type { get; set; }
-        public string type_desc { get; set; }
+        public int file_class_code { get; set; }
+        public string class_desc { get; set; }
         public char valid { get; set; }
+
     }
 }
