@@ -1,4 +1,6 @@
 ﻿using CasmanSln.Models;
+using CasmanSln.RequestDtos;
+using CasmanSln.ResponseDtos;
 
 namespace CasmanSln.DataAccess.Interface
 {
@@ -13,5 +15,7 @@ namespace CasmanSln.DataAccess.Interface
         Task<bool>UpdatePractionerDetails(string PracNum, CasePractioner newPrac);
 
         Task<bool>DeletePractioner(string PracNum);
+
+        Task<AddPractResponseDto> AddPractitionerDetails(AddPractRequestDto request);
     }
 }

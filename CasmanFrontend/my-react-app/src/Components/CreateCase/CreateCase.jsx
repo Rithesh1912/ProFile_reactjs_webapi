@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./CreateCase.css";
 import save from "../../Assets/save_goto_gen_details.gif";
 import cancel from "../../Assets/cancel.gif";
@@ -6,11 +6,11 @@ import getmemberdetails from "../../Assets/GetMemberDetails.gif";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 function CreateCase() {
   const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState("member");
-
 
   const [pracNumber, setPracNumber] = useState("");
   const [surname, setSurname] = useState("");
@@ -19,14 +19,45 @@ function CreateCase() {
   const [sex, setSex] = useState("Unknown");
   const [warnings, setWarnings] = useState("");
   const [flexPartySummary, setFlexPartySummary] = useState("");
-  const [identifier, setIdentifier] = useState("");
-  const [speciality, setSpeciality] = useState("");
-  const [Role, setRole] = useState("");
-  const userId = "robin"; // Replace with actual user ID logic
+
+  // Dropdowns from session
+  const [indemnifiers, setIndemnifiers] = useState([]);
+  const [specialities, setSpecialities] = useState([]);
+
+  const userId = "robin";
+
+  const [formData, setFormData] = useState({
+    caseType: "",
+    department: "",
+    indemnifier: "",
+    speciality: ""
+  });
+
+  useEffect(() => {
+    // Load dropdowns from session storage
+    const dropdowns = JSON.parse(sessionStorage.getItem("dropdowns"));
+    if (dropdowns) {
+      setIndemnifiers(dropdowns.indemnifiers || []);
+      setSpecialities(dropdowns.specialties || []);
+    } else {
+      // Fetch from API if not in session
+      const fetchDropdowns = async () => {
+        const res = await axios.get("https://localhost:7277/api/DropDown/getall");
+        sessionStorage.setItem("dropdowns", JSON.stringify(res.data));
+        setIndemnifiers(res.data.indemnifiers || []);
+        setSpecialities(res.data.specialties || []);
+      };
+      fetchDropdowns();
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     if ((selectedOption === "member" || selectedOption === "known") && !pracNumber.trim()) {
       alert("Prac Number is required.");
@@ -36,59 +67,36 @@ function CreateCase() {
       alert("Surname is required.");
       return;
     }
-    if (!identifier) {
-      alert("Identifier is required.");
+    if (!formData.indemnifier) {
+      alert("Indemnifier is required.");
       return;
     }
-    // if (!role.trim()) {
-    //   alert("Role is required.");
-    //   return;
-    // }
-    const generatePracNum = () => {
-  return "PRAC-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
-};
 
+    const generatePracNum = () => "PRAC-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 
-const payload = {
-  PracNum: generatePracNum(),
-  PracRole: "Lead",
-  // MduUnit: mduUnit,
-  PracLastName: surname,
-  PracFirstName: forename,
-  PracInit: initials,
-  PracSex: sex,
-  PracDefOrg: identifier,
-  PracTow: speciality,
-  // PracSource: pracSource,
-  UserId: userId,
-  CaseCreateSource: "Casman"
-};
-console.log("Payload to be sent:", payload);
+    const payload = {
+      PracNum: generatePracNum(),
+      PracRole: "Lead",
+      PracLastName: surname,
+      PracFirstName: forename,
+      PracInit: initials,
+      PracSex: sex,
+      PracDefOrg: formData.indemnifier,
+      PracTow: formData.speciality,
+      UserId: userId,
+      CaseCreateSource: "Casman"
+    };
 
     try {
-      const response = await axios.post(
-        "https://localhost:7277/api/Case/create",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      );
-      console.log("Response from server:", response);
+      const response = await axios.post("https://localhost:7277/api/Case/create", payload, {
+        headers: { "Content-Type": "application/json" }
+      });
 
-      if (response.status !=200) {
-        throw new Error("Failed to save case");
-      }
+      if (response.status !== 200) throw new Error("Failed to save case");
 
-      const data = await response.data;
-      const caseId = data.caseID;
-      const subId = data.subID;
+      const data = response.data;
       alert("Case saved successfully!");
-      console.log("Saved data:", caseId, subId);
-      navigate(`/general?caseId=${caseId}&subId=${subId}`);
-
-
+      navigate(`/general?caseId=${data.caseID}&subId=${data.subID}`);
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -134,16 +142,8 @@ console.log("Payload to be sent:", payload);
       {(selectedOption === "member" || selectedOption === "known") && (
         <div className="form-row">
           <label>Prac Number</label>
-          <input
-            type="text"
-            value={pracNumber}
-            onChange={(e) => setPracNumber(e.target.value)}
-          />
-          <button
-            type="button"
-            className="getmemberdetails"
-            onClick={() => alert("Fetch member details logic here")}
-          >
+          <input type="text" value={pracNumber} onChange={(e) => setPracNumber(e.target.value)} />
+          <button type="button" className="getmemberdetails" onClick={() => alert("Fetch member details logic here")}>
             <img src={getmemberdetails} alt="Get Member Details" />
           </button>
         </div>
@@ -151,35 +151,17 @@ console.log("Payload to be sent:", payload);
 
       <div className="form-row">
         <label>Surname *</label>
-        <input
-          type="text"
-          className="full-width"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          disabled={selectedOption === "member"}
-          required
-        />
+        <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} disabled={selectedOption === "member"} required />
       </div>
 
       <div className="form-row">
         <label>Forename</label>
-        <input
-          type="text"
-          className="full-width"
-          value={forename}
-          onChange={(e) => setForename(e.target.value)}
-          disabled={selectedOption === "member"}
-        />
+        <input type="text" value={forename} onChange={(e) => setForename(e.target.value)} disabled={selectedOption === "member"} />
       </div>
 
       <div className="form-row">
         <label>Initials</label>
-        <input
-          type="text"
-          value={initials}
-          onChange={(e) => setInitials(e.target.value)}
-          disabled={selectedOption === "member"}
-        />
+        <input type="text" value={initials} onChange={(e) => setInitials(e.target.value)} disabled={selectedOption === "member"} />
         <label>Sex</label>
         <select value={sex} onChange={(e) => setSex(e.target.value)}>
           <option>Unknown</option>
@@ -188,80 +170,28 @@ console.log("Payload to be sent:", payload);
         </select>
       </div>
 
-      {(selectedOption === "known" || selectedOption === "other") ? (
-        <div className="form-row">
-          <label>Warnings</label>
-          <input
-            type="text"
-            className="flex-grow"
-            value={warnings}
-            onChange={(e) => setWarnings(e.target.value)}
-            disabled={false}
-          />
-        </div>
-      ) : (
-        <div className="form-row">
-          <label>Flex Party Summary</label>
-          <input
-            type="text"
-            className="flex-grow"
-            value={flexPartySummary}
-            onChange={(e) => setFlexPartySummary(e.target.value)}
-            disabled={false}
-          />
-        </div>
-      )}
-
       <div className="form-row">
         <label>Indemnifier *</label>
-        <select
-          className="flex-grow"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
-          required
-        >
+        <select name="indemnifier" value={formData.indemnifier} onChange={handleChange} required>
           <option value="">Select</option>
-          
-          <option value="MDU">MDU</option>
-          <option value="MDU Connect ">MDU Connect </option>
-          <option value="Blank">Blank </option>
-          <option value="GP ELS">GP ELS </option>
-          <option value="GP FLS">GP FLS </option>
-          <option value="Group">Group </option>
-          <option value="MDDUS">MDDUS </option>
-          <option value="MPS">MPS </option>
-          <option value="Other">Other </option>
+          {indemnifiers.map((item, idx) => (
+            <option key={idx} value={item}>{item}</option>
+          ))}
         </select>
       </div>
 
       <div className="form-row">
         <label>Speciality at DOI</label>
-        <select
-          className="flex-grow"
-          value={speciality}
-          onChange={(e) => setSpeciality(e.target.value)}
-        >
+        <select name="speciality" value={formData.speciality} onChange={handleChange}>
           <option value="">Select</option>
-          
-          <option value="ADVANCED NURSE PRACTITIONER">ADVANCED NURSE PRACTITIONER </option>
-          <option value="ALTERNATIVE MEDICINE">ALTERNATIVE MEDICINE</option>
-          <option value="CARDIAC SURGERY">CARDIAC SURGERY</option>
-          <option value="BASICS">BASICS</option>
-          <option value="AUDIOLOGICAL MEDICINE">AUDIOLOGICAL MEDICINE</option>
-          <option value="ANAESTHETICS">ANAESTHETICS</option>
+          {specialities.map((item, idx) => (
+            <option key={idx} value={item}>{item}</option>
+          ))}
         </select>
-        <label>Role *</label>
-        <input
-          type="text"
-          value="Lead"
-          onChange={(e) => setRole(e.target.value)}
-          disabled={true}
-          required
-        />
       </div>
 
       <div className="button-group">
-        <button type="submit" name="saveandgotogeneraldetails" onClick={handleSubmit}>
+        <button type="submit" name="saveandgotogeneraldetails">
           <img src={save} alt="Save" />
         </button>
         <button type="button" name="cancel" onClick={() => alert("Cancel action here")}>

@@ -1,6 +1,8 @@
 ﻿using CasmanSln.DataAccess.Interface;
 using CasmanSln.DataAccess.Repository;
 using CasmanSln.Models;
+using CasmanSln.RequestDtos;
+using CasmanSln.ResponseDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,7 +15,7 @@ namespace CasmanSln.Controllers
     {
         private readonly IPractionerDetails practionerDetails;
         private readonly ILogger<PractionerController> logger;
-
+        
 
         public PractionerController(IPractionerDetails practionerDetails, ILogger<PractionerController> logger) {
 
@@ -115,6 +117,24 @@ namespace CasmanSln.Controllers
             }
 
         }
+        [HttpPost("add-practitioner")]
+        public async Task<IActionResult> AddPractitioner([FromBody] AddPractRequestDto request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await practionerDetails.AddPractitionerDetails(request);
+
+            if (result.IsSuccess)
+                return Ok(result);  
+
+            if (result.Message.StartsWith("Error"))
+                return StatusCode(500, result);  
+
+            return BadRequest(result);  
+        }
+
+
 
 
     }
