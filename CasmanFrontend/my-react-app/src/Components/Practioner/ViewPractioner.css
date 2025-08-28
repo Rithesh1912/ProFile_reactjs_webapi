@@ -1,0 +1,69 @@
+/* ViewPractioner.css */
+
+.prac-container {
+  max-width: 100%;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.prac-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.prac-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.prac-table th,
+.prac-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.prac-table th {
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+}
+
+.prac-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.prac-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+  color: #666;
+}
+
+.btn {
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}

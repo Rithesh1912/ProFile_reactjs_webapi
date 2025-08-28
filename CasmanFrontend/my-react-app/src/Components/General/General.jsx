@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import "./General.css";
 import save from "../../Assets/save_goto_gen_details.gif";
 import cancel from "../../Assets/cancel.gif";
@@ -8,12 +8,21 @@ import getpostcode from "../../Assets/getpostcode.gif";
 import clear from "../../Assets/clear.gif";
 import { useSearchParams } from "react-router-dom";
 import CaseHeader from "../CaseHeader/CaseHeader";
-import { fetchAndStoreDropdowns } from "../../Service/DropDownservice";
 
-function General() {
-  const [searchParams] = useSearchParams();
-  const caseId = searchParams.get("caseId");
-  const subId = searchParams.get("subId");
+function General({ caseData }) {
+  const {caseId,subId}=React.useContext(CaseContext);
+  
+  const { addCase } = useContext(CaseContext);
+
+  useEffect(() => {
+    if (caseData) {
+      addCase(caseData);
+    }
+  }, [caseData, addCase]);
+
+  // const [searchParams] = useSearchParams();
+  // const caseId = searchParams.get("caseId");
+  // const subId = searchParams.get("subId");
   const [caseTypes, setCaseTypes] = useState([]);
   const [caseLiabilities, setcaseLiabilities] = useState([]);
   const [casedepartment, setcasedepartment] = useState([]);
@@ -81,7 +90,8 @@ function General() {
             incdtDate: data.incdtDate ? data.incdtDate.split("T")[0] : "",
             claimDate: data.claimDate ? data.claimDate.split("T")[0] : "",
           }));
-        })
+          
+      })
         .catch((err) => console.error("Error fetching case:", err));
     }
   }, [caseId, subId]);

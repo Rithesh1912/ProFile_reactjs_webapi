@@ -1,0 +1,85 @@
+.form-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+.prac-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 45%;
+}
+
+.form-section.full-width {
+  flex: 1 1 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, select, textarea {
+  padding: 6px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.search-btn {
+  margin-top: 5px;
+  background: steelblue;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background: #1d4e89;
+}
+
+.btn-section {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  background: steelblue;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.cancel {
+  background: gray;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
