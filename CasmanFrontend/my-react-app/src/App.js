@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import CaseSearch from './Components/CaseSearch/CaseSearch';
 import CreateCase from './Components/CreateCase/CreateCase';
 import  General  from './Components/General/General';
+import ViewPractioner from './Components/Practioner/ViewPractioner';
+import AddPractitioner from './Components/Practioner/AddPractioner';
+import { CaseProvider } from './Components/ContextAPI/CaseContext';
+import RecentCases from './Components/RecentCases/RecentCases';
 
 
 function App() {
@@ -23,16 +27,23 @@ function App() {
           Learn React
         </a>
       </header> */}
-
+      <CaseProvider>
       <Router>
         <Header />
+     
+       
         <Routes>
           <Route path="/" element={<Navigate to="/searchcasedetails" replace />} />
           <Route path="/searchcasedetails" element={<CaseSearch></CaseSearch>} />
           <Route path='/CreateCase' element={<CreateCase></CreateCase>}></Route>
           <Route path='/General' element={<General></General>}></Route>
+          <Route path="*" element={<h2>404: Page Not Found</h2>} />
+          <Route path='/ViewPractioner' element={<ViewPractioner></ViewPractioner>}></Route>
+          <Route path='/AddPractioner' element={<AddPractitioner></AddPractitioner>}></Route>
+          <Route path='/RecentCases' element={<RecentCases/>}></Route>
         </Routes>
       </Router>
+      </CaseProvider>
 
 
     </div>

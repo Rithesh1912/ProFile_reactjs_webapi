@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './CaseSearch.css';
-import casedetails from "../../Assets/case_details.gif";
 import cancelimage from "../../Assets/cancel.jpg";
 import search from "../../Assets/search.gif";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-
+import { CaseContext } from '../ContextAPI/CaseContext';
 
 const CaseSearch = () => {
+  const { setCaseData } = useContext(CaseContext); // 🔹 use context here
   const [caseID, setCaseID] = useState('');
   const [subID, setSubID] = useState('');
   const [results, setResults] = useState([]);
@@ -21,7 +21,6 @@ const CaseSearch = () => {
       return;
     }
 
-    // Match backend CaseSearchRequestDto properties
     const requestDto = {
       caseID: caseID || null,
       subsidID: subID || null
@@ -31,6 +30,9 @@ const CaseSearch = () => {
       .post("https://localhost:7277/api/Case/search", requestDto)
       .then((response) => {
         setResults(response.data || []);
+        if (response.data.length === 0) {
+          alert("No records found.");
+        }
       })
       .catch((error) => {
         console.error("Error searching case details:", error);
@@ -42,6 +44,15 @@ const CaseSearch = () => {
     setCaseID('');
     setSubID('');
     setResults([]);
+  };
+
+  // 🔹 When user clicks a row → store caseId/subId in context
+  const handleRowClick = (item) => {
+    setCaseData({
+      caseId: item.caseId,
+      subId: item.subsidId,
+      userId: item.userId
+    });
   };
 
   return (
@@ -86,8 +97,10 @@ const CaseSearch = () => {
           </thead>
           <tbody>
             {results.map((item, index) => (
-              <tr key={index}>
-                <td><Link to={`/General?caseId=${item.caseId}&subId=${item.subsidId}`}>{item.caseId}</Link></td>
+              <tr key={index} onClick={() => handleRowClick(item)}> {/* 🔹 store on click */}
+                <td>
+                  <Link to={`/General`}>{item.caseId}</Link>
+                </td>
                 <td>{item.subsidId}</td>
                 <td>{item.mduUnit}</td>
                 <td>{item.incdtDate ? new Date(item.incdtDate).toLocaleDateString() : ''}</td>

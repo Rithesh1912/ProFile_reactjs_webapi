@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./General.css";
 import save from "../../Assets/save_goto_gen_details.gif";
 import cancel from "../../Assets/cancel.gif";
@@ -9,11 +9,22 @@ import clear from "../../Assets/clear.gif";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from 'react';
 import CaseHeader from "../CaseHeader/CaseHeader";
+import { CaseContext } from "../ContextAPI/CaseContext";
 
-function General() {
-  const [searchParams] = useSearchParams();
-  const caseId = searchParams.get("caseId");
-  const subId = searchParams.get("subId");
+function General({ caseData }) {
+  const {caseId,subId}=React.useContext(CaseContext);
+  
+  const { addCase } = useContext(CaseContext);
+
+  useEffect(() => {
+    if (caseData) {
+      addCase(caseData);
+    }
+  }, [caseData, addCase]);
+
+  // const [searchParams] = useSearchParams();
+  // const caseId = searchParams.get("caseId");
+  // const subId = searchParams.get("subId");
 
   const [formData, setFormData] = useState({
     caseId: caseId || "",
@@ -46,6 +57,7 @@ function General() {
           claimDate: data.claimDate ? data.claimDate.split("T")[0] : "",
           
         }));
+        
       })
       .catch((err) => console.error("Error fetching case:", err));
   }
