@@ -8,7 +8,9 @@ import ViewPractioner from './Components/Practioner/ViewPractioner';
 import AddPractitioner from './Components/Practioner/AddPractioner';
 import { CaseProvider } from './Components/ContextAPI/CaseContext';
 import RecentCases from './Components/RecentCases/RecentCases';
-import { DropdownsProvider } from './Components/ContextAPI/DropDownContext';
+import { DropdownsProvider } from './Components/ContextAPI/DropDownContext';import Register from './Components/Staff/StaffRegister';
+import Login from './Components/Staff/StaffLogin';    
+
 
 function App() {
   return (
@@ -32,9 +34,10 @@ function App() {
       <Router>
         <Header />
      
-       
+        
         <Routes>
-          <Route path="/" element={<Navigate to="/searchcasedetails" replace />} />
+          <Route path="/" element={<Login/>} />
+          <Route path='/Register' element={<Register/>} />
           <Route path="/searchcasedetails" element={<CaseSearch></CaseSearch>} />
           <Route path='/CreateCase' element={<CreateCase></CreateCase>}></Route>
           <Route path='/General' element={<General></General>}></Route>

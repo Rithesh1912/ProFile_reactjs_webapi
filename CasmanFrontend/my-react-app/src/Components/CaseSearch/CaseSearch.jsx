@@ -5,12 +5,14 @@ import search from "../../Assets/search.gif";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { CaseContext } from '../ContextAPI/CaseContext';
+import CaseHeader from '../CaseHeader/CaseHeader';
 
 const CaseSearch = () => {
-  const { setCaseData } = useContext(CaseContext); // 🔹 use context here
+  const {caseData, setCaseData } = useContext(CaseContext); // 🔹 use context here
   const [caseID, setCaseID] = useState('');
   const [subID, setSubID] = useState('');
   const [results, setResults] = useState([]);
+
 
   const handleCaseIDChange = (e) => setCaseID(e.target.value);
   const handleSubIDChange = (e) => setSubID(e.target.value);
@@ -46,7 +48,7 @@ const CaseSearch = () => {
     setResults([]);
   };
 
-  // 🔹 When user clicks a row → store caseId/subId in context
+ 
   const handleRowClick = (item) => {
     setCaseData({
       caseId: item.caseId,
@@ -56,8 +58,18 @@ const CaseSearch = () => {
   };
 
   return (
+    
+    
+     
     <div className="container">
-      
+       <CaseHeader
+        caseId={caseData?.caseId}
+        subId={caseData?.subId}
+        status={caseData?.status}
+        liability={caseData?.liability}
+        handler={caseData?.handler}
+        practitioner={caseData?.practitioner}  
+      />
       <h2>Search - Case Details Criteria</h2>
       <div className="box">
         <input

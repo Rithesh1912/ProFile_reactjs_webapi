@@ -10,17 +10,22 @@ import { CaseContext } from "../ContextAPI/CaseContext";
 import { useDropdowns } from "../ContextAPI/DropDownContext";
 import CaseHeader from "../CaseHeader/CaseHeader";
 
-function General({ caseData }) {
-  const { caseId, subId, addCase } = useContext(CaseContext);
-  const { dropdowns, loading, error, reload } = useDropdowns();
+function General() {
+  const {caseId,subId,status,liability,handler,practitioner,setCaseData}=React.useContext(CaseContext);
+  
+  // const { addCase } = useContext(CaseContext);
 
-  //  console.log("Dropdown cache:", dropdowns); 
+  // useEffect(() => {
+  //   if (caseData) {
+  //     addCase(caseData);
+  //   }
+  // }, [caseData, addCase]);
 
-  useEffect(() => {
-    if (caseData) {
-      addCase(caseData);
-    }
-  }, [caseData, addCase]);
+  
+
+  // const [searchParams] = useSearchParams();
+  // const caseId = searchParams.get("caseId");
+  // const subId = searchParams.get("subId");
 
   const [formData, setFormData] = useState({
     caseId: caseId || "",
@@ -37,24 +42,40 @@ function General({ caseData }) {
     claimDate: "",
     legalCaseDocumentStatus: "Electronic",
   });
-
-  // fetch case details if editing
-  useEffect(() => {
-    if (caseId && subId) {
-      axios
-        .get(`https://localhost:7277/api/Case/GetCaseDetailsByCaseId/${caseId}/${subId}`)
-        .then((res) => {
-          const data = res.data;
-          setFormData((prev) => ({
-            ...prev,
-            ...data,
-            incdtDate: data.incdtDate ? data.incdtDate.split("T")[0] : "",
-            claimDate: data.claimDate ? data.claimDate.split("T")[0] : "",
-          }));
-        })
-        .catch((err) => console.error("Error fetching case:", err));
+   useEffect(() => {
+    if (caseId) {
+      setCaseData({
+        caseId: formData.caseId,
+        subId: formData.subsidId,
+        status: "Active", // Assuming status is always Active here
+        liability: formData.mduLiability,
+        handler: formData.caseHandler1,
+        practitioner: formData.leadPractitioner,
+      });
     }
-  }, [caseId, subId]);
+  }, [formData,caseId,setCaseData]);
+  
+ useEffect(() => {
+  
+  if (caseId && subId) {
+    axios
+      .get(`https://localhost:7277/api/Case/GetCaseDetailsByCaseId/${caseId}/${subId}`)
+      .then((res) => {
+        const data = res.data;
+        
+        setFormData((prev) => ({
+          ...prev,
+          ...data,
+          incdtDate: data.incdtDate ? data.incdtDate.split("T")[0] : "",
+          claimDate: data.claimDate ? data.claimDate.split("T")[0] : "",
+          
+        }));
+        
+      })
+      .catch((err) => console.error("Error fetching case:", err));
+  }
+}, [caseId, subId]);
+
 
   // change handler
   const handleChange = (e) => {
@@ -92,9 +113,9 @@ function General({ caseData }) {
   return (
     <div>
       <CaseHeader
-        caseId={formData.caseId}
+        caseId={caseId}
         subId={formData.subsidId}
-        status={formData.status}
+        status={status}
         liability={formData.mduLiability}
         handler={formData.caseHandler1}
         practitioner={formData.leadPractitioner}

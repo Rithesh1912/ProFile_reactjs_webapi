@@ -1,14 +1,20 @@
 import React, { createContext, useState } from "react";
 
 export const CaseContext = createContext({
-  caseId: null,
-  subId: null,
-  userId: null,
-  setCaseData: () => {},
+  caseData: {
+    caseId: null,
+    subId: null,
+    userId: null,
+    status: null,
+    liability: null,
+    handler: null,
+    practitioner: null
+  },
+  setCaseData: () => {}
 });
 
 export const CaseProvider = ({ children }) => {
-  const [caseData, setCaseData] = useState({ caseId: null, subId: null,userId: null });
+  const [caseData, setCaseData] = useState({ caseId: null, subId: null,userId: null,staffName:null,status:null,liability:null,handler:null,practitioner:null });
   const[RecentCases,setRecentCases]=useState([]);
   // Function to set current case and add to recent list
   const addCase = (newCase) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
 import logo from '../../Assets/profileBarWb.GIF';
-
+import { CaseContext } from '../ContextAPI/CaseContext';
 function Header() {
   const navigate = useNavigate();
 
@@ -11,6 +11,7 @@ function Header() {
     month: 'long',
     year: 'numeric',
   });
+  const{staffId,staffName}=React.useContext(CaseContext); 
 
   const tabs = [
     {
@@ -185,9 +186,7 @@ function Header() {
 
         <div className="date">{currentDate}</div>
         <div className="user">
-          Welcome rithesh
-          <br />
-          rathanavel(Support)
+          Welcome {staffName}(Support)
         </div>
       </div>
 
