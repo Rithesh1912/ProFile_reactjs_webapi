@@ -14,7 +14,7 @@ namespace CasmanSln.DataAccess.Interface
 
         Task<bool>UpdatePractionerDetails(string PracNum, CasePractioner newPrac);
 
-        Task<bool>DeletePractioner(string PracNum);
+        Task<bool> DeletePractioner(string PracNum);
 
         Task<AddPractResponseDto> AddPractitionerDetails(AddPractRequestDto request);
     }

@@ -57,6 +57,7 @@ const CaseSearch = () => {
 
   return (
     <div className="container">
+      
       <h2>Search - Case Details Criteria</h2>
       <div className="box">
         <input

@@ -23,6 +23,10 @@ function Header() {
         'Advisory Case Wizard',
         'Summary',
         'Practitioner',
+        {
+          title: 'Practitioner',
+          submenu: ['View Practitioner', 'Benefit Check History']
+        },
         'Patient',
         'Advisory Progress',
         'Last Results',
@@ -135,13 +139,13 @@ function Header() {
     if (item === 'General') {
       navigate('/General');
     }
-    if( item === 'Practitioner'){
+    if (item === 'View Practitioner') {
       navigate('/ViewPractioner');
     }
-    if( item === 'Add Practitioner'){
+    if (item === 'Add Practitioner') {
       navigate('/AddPractioner');
     }
-    if( item === 'Recent Cases'){
+    if (item === 'Recent Cases') {
       navigate('/RecentCases');
     }
   };

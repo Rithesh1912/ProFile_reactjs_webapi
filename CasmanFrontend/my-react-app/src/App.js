@@ -8,7 +8,7 @@ import ViewPractioner from './Components/Practioner/ViewPractioner';
 import AddPractitioner from './Components/Practioner/AddPractioner';
 import { CaseProvider } from './Components/ContextAPI/CaseContext';
 import RecentCases from './Components/RecentCases/RecentCases';
-
+import { DropdownsProvider } from './Components/ContextAPI/DropDownContext';
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
           Learn React
         </a>
       </header> */}
+      <DropdownsProvider>
       <CaseProvider>
       <Router>
         <Header />
@@ -44,7 +45,7 @@ function App() {
         </Routes>
       </Router>
       </CaseProvider>
-
+        </DropdownsProvider>
 
     </div>
   );

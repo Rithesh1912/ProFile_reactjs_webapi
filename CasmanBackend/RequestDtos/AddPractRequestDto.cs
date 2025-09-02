@@ -2,7 +2,7 @@
 {
     public class AddPractRequestDto
     {
-        public int CaseId { get; set; }
+        public int? CaseId { get; set; }
         public string SubsidId { get; set; }
         public string PracNum { get; set; }
         public string SurName { get; set; }

@@ -1,28 +1,22 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import "./CreateCase.css";
 import save from "../../Assets/save_goto_gen_details.gif";
 import cancel from "../../Assets/cancel.gif";
 import getmemberdetails from "../../Assets/GetMemberDetails.gif";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useDropdowns } from "../ContextAPI/DropDownContext"; 
 
 function CreateCase() {
   const navigate = useNavigate();
+  const { dropdowns, loading, error } = useDropdowns(); 
 
   const [selectedOption, setSelectedOption] = useState("member");
-
   const [pracNumber, setPracNumber] = useState("");
   const [surname, setSurname] = useState("");
   const [forename, setForename] = useState("");
   const [initials, setInitials] = useState("");
   const [sex, setSex] = useState("Unknown");
-  const [warnings, setWarnings] = useState("");
-  const [flexPartySummary, setFlexPartySummary] = useState("");
-
-  // Dropdowns from session
-  const [indemnifiers, setIndemnifiers] = useState([]);
-  const [specialities, setSpecialities] = useState([]);
 
   const userId = "robin";
 
@@ -32,24 +26,6 @@ function CreateCase() {
     indemnifier: "",
     speciality: ""
   });
-
-  useEffect(() => {
-    // Load dropdowns from session storage
-    const dropdowns = JSON.parse(sessionStorage.getItem("dropdowns"));
-    if (dropdowns) {
-      setIndemnifiers(dropdowns.indemnifiers || []);
-      setSpecialities(dropdowns.specialties || []);
-    } else {
-      // Fetch from API if not in session
-      const fetchDropdowns = async () => {
-        const res = await axios.get("https://localhost:7277/api/DropDown/getall");
-        sessionStorage.setItem("dropdowns", JSON.stringify(res.data));
-        setIndemnifiers(res.data.indemnifiers || []);
-        setSpecialities(res.data.specialties || []);
-      };
-      fetchDropdowns();
-    }
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,9 +64,11 @@ function CreateCase() {
     };
 
     try {
-      const response = await axios.post("https://localhost:7277/api/Case/create", payload, {
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = await axios.post(
+        "https://localhost:7277/api/Case/create",
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       if (response.status !== 200) throw new Error("Failed to save case");
 
@@ -101,6 +79,9 @@ function CreateCase() {
       alert("Error: " + error.message);
     }
   };
+
+  if (loading) return <p>Loading dropdowns...</p>;
+  if (error) return <p>Error loading dropdowns: {error}</p>;
 
   return (
     <form className="practitioner-container" onSubmit={handleSubmit}>
@@ -151,17 +132,33 @@ function CreateCase() {
 
       <div className="form-row">
         <label>Surname *</label>
-        <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} disabled={selectedOption === "member"} required />
+        <input
+          type="text"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
+          disabled={selectedOption === "member"}
+          required
+        />
       </div>
 
       <div className="form-row">
         <label>Forename</label>
-        <input type="text" value={forename} onChange={(e) => setForename(e.target.value)} disabled={selectedOption === "member"} />
+        <input
+          type="text"
+          value={forename}
+          onChange={(e) => setForename(e.target.value)}
+          disabled={selectedOption === "member"}
+        />
       </div>
 
       <div className="form-row">
         <label>Initials</label>
-        <input type="text" value={initials} onChange={(e) => setInitials(e.target.value)} disabled={selectedOption === "member"} />
+        <input
+          type="text"
+          value={initials}
+          onChange={(e) => setInitials(e.target.value)}
+          disabled={selectedOption === "member"}
+        />
         <label>Sex</label>
         <select value={sex} onChange={(e) => setSex(e.target.value)}>
           <option>Unknown</option>
@@ -174,8 +171,10 @@ function CreateCase() {
         <label>Indemnifier *</label>
         <select name="indemnifier" value={formData.indemnifier} onChange={handleChange} required>
           <option value="">Select</option>
-          {indemnifiers.map((item, idx) => (
-            <option key={idx} value={item}>{item}</option>
+          {dropdowns.indemnifiers.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
           ))}
         </select>
       </div>
@@ -184,8 +183,10 @@ function CreateCase() {
         <label>Speciality at DOI</label>
         <select name="speciality" value={formData.speciality} onChange={handleChange}>
           <option value="">Select</option>
-          {specialities.map((item, idx) => (
-            <option key={idx} value={item}>{item}</option>
+          {dropdowns.specialties.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
           ))}
         </select>
       </div>

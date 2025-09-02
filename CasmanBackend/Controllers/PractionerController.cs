@@ -118,21 +118,22 @@ namespace CasmanSln.Controllers
 
         }
         [HttpPost("add-practitioner")]
-        public async Task<IActionResult> AddPractitioner([FromBody] AddPractRequestDto request)
+        public async Task<IActionResult> AddPractitionerDetails([FromBody] AddPractRequestDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await practionerDetails.AddPractitionerDetails(request);
+            var result = await practionerDetails.AddPractitionerDetails(dto);
 
             if (result.IsSuccess)
-                return Ok(result);  
+                return Ok(result);
 
             if (result.Message.StartsWith("Error"))
-                return StatusCode(500, result);  
+                return StatusCode(500, result);
 
-            return BadRequest(result);  
+            return BadRequest(result);
         }
+
 
 
 

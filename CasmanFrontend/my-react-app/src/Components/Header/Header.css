@@ -27,14 +27,14 @@
   font-size: 14px;
   margin-right: 20px;
   font-size: small;
-white-space: nowrap;
+  white-space: nowrap;
 }
 
 .user {
   font-size: 14px;
   text-align: right;
   font-weight: bold;
-  margin-left: 50%;
+  margin-left: 47%;
 }
 
 .nav-tabs {
@@ -42,9 +42,9 @@ white-space: nowrap;
   background-color: #b3cce6;
   font-size: small;
 
-    border-right: 2px solid #ccc;
-        justify-content: space-between;
-    padding: 0 20px;
+  border-right: 2px solid #ccc;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .tab {
@@ -106,3 +106,31 @@ white-space: nowrap;
 }
 
 
+/* Nested dropdowns */
+.dropdown-item.nested {
+  position: relative;
+}
+
+.dropdown-item.nested>.nested-dropdown {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 150px;
+  background-color: #cce0f0;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item.nested:hover>.nested-dropdown {
+  display: block;
+}
+
+
+.dropdown-item.nested>span::after {
+  content: "▶";
+  float: right;
+  margin-left: 5px;
+  font-size: 12px;
+}
