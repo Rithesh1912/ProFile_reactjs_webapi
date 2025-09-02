@@ -12,6 +12,7 @@ import CaseHeader from "../CaseHeader/CaseHeader";
 
 function General() {
   const {caseId,subId,status,liability,handler,practitioner,setCaseData}=React.useContext(CaseContext);
+  const { dropdowns, loading, error, reload } = useDropdowns();
   
   // const { addCase } = useContext(CaseContext);
 
