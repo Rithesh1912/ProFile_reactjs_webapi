@@ -11,26 +11,19 @@ import { useDropdowns } from "../ContextAPI/DropDownContext";
 import CaseHeader from "../CaseHeader/CaseHeader";
 
 function General() {
-  const {caseId,subId,status,liability,handler,practitioner,setCaseData}=React.useContext(CaseContext);
+  const {caseData,setCaseData}=React.useContext(CaseContext);
+  const { caseId, subsidId, status } = caseData;
+  console.log("General component - caseData from context:", caseData);
+  const subId = subsidId;
   const { dropdowns, loading, error, reload } = useDropdowns();
-  
-  // const { addCase } = useContext(CaseContext);
-
-  // useEffect(() => {
-  //   if (caseData) {
-  //     addCase(caseData);
-  //   }
-  // }, [caseData, addCase]);
-
-  
-
-  // const [searchParams] = useSearchParams();
-  // const caseId = searchParams.get("caseId");
-  // const subId = searchParams.get("subId");
-
+    useEffect(() => {
+    if (!caseData || !caseData.caseId) {
+      console.warn("⚠ No case data found. Maybe navigate back to search.");
+    }
+  }, [caseData]);
   const [formData, setFormData] = useState({
-    caseId: caseId || "",
-    subsidId: subId || "",
+    caseId:caseId || "",
+    subId:subsidId || "",
     department: "", 
     caseType: "",
     mduLiability: "",
@@ -43,18 +36,20 @@ function General() {
     claimDate: "",
     legalCaseDocumentStatus: "Electronic",
   });
-   useEffect(() => {
-    if (caseId) {
-      setCaseData({
-        caseId: formData.caseId,
-        subId: formData.subsidId,
-        status: "Active", // Assuming status is always Active here
-        liability: formData.mduLiability,
-        handler: formData.caseHandler1,
-        practitioner: formData.leadPractitioner,
-      });
-    }
-  }, [formData,caseId,setCaseData]);
+
+  //  useEffect(() => {
+  //   if (caseId) {
+  //     setCaseData({
+  //       caseId: formData.caseId,
+  //       subsidId: formData.subid,
+  //       status: "Active", // Assuming status is always Active here
+  //       liability: formData.mduLiability,
+  //       handler: formData.caseHandler1,
+  //       practitioner: formData.leadPractitioner,
+  //     });
+  //   }
+  // }, [formData,caseId,setCaseData]);
+  // console.log("CaseData in General:", caseData);
   
  useEffect(() => {
   
@@ -115,7 +110,7 @@ function General() {
     <div>
       <CaseHeader
         caseId={caseId}
-        subId={formData.subsidId}
+        subId={subsidId}
         status={status}
         liability={formData.mduLiability}
         handler={formData.caseHandler1}

@@ -1,25 +1,37 @@
-import React, {useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ViewPractioner.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CaseContext } from "../ContextAPI/CaseContext";
-
 
 const ViewPractioner = () => {
   const [practitioner, setPractitioner] = useState(null);
-  const{caseId,subId,setCaseData}=useContext(CaseContext);
- useEffect(() => {
-    fetch(`https://localhost:7277/api/Practioner/GetPracDetailsByCaseId/${caseId}/${subId}`)
-      .then((res) => res.json())
+  const {caseData}=useContext(CaseContext);
+    const { caseId, subsidId, status } = caseData;
+    console.log("ViewPractitioner component - caseData from context:", caseData);
+   
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!caseId || !subsidId) return;
+
+    fetch(`https://localhost:7277/api/Practioner/GetPractionerDetailsByCaseId/${caseId}/${subsidId}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch practitioner details");
+        }
+        return res.json();
+      })
       .then((data) => setPractitioner(data))
       .catch((err) => console.error("Error fetching practitioner:", err));
-  }, [setCaseData,caseId,subId]);
+  }, [caseId, subsidId]);
 
   if (!practitioner) {
     return <p className="loading">Loading practitioner details...</p>;
   }
+
   const handleAddPractitioner = () => {
-    Navigate('/AddPractioner');
-  }
+    navigate("/AddPractioner");
+  };
 
   return (
     <div className="prac-container">
@@ -44,9 +56,17 @@ const ViewPractioner = () => {
             <td>{practitioner.prac_Role}</td>
             <td>{practitioner.idemnifier}</td>
             <td>{practitioner.perCent_Involved}</td>
-            <td><button className="btn">X</button></td>
+            <td>
+              <button className="btn">X</button>
+            </td>
           </tr>
-          <tr><td colSpan="12"><button className="btn" onClick={handleAddPractitioner}>Add</button></td></tr>
+          <tr>
+            <td colSpan="7" style={{ textAlign: "center" }}>
+              <button className="btn" onClick={handleAddPractitioner}>
+                Add Practitioner
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

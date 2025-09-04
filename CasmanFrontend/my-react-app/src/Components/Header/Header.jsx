@@ -23,7 +23,7 @@ function Header() {
         'Address Book',
         'Advisory Case Wizard',
         'Summary',
-        'Practitioner',
+       
         {
           title: 'Practitioner',
           submenu: ['View Practitioner', 'Benefit Check History']

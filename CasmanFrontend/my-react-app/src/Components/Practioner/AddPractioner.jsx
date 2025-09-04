@@ -4,19 +4,21 @@ import axios from "axios";
 import { CaseContext } from "../ContextAPI/CaseContext";
 import CaseHeader from "../CaseHeader/CaseHeader";
 
-const AddPractitioner = ({caseData}) => {
-  const { caseId, subId } = React.useContext(CaseContext);
+const AddPractitioner = () => {
+    const {caseData, setCaseData} = useContext(CaseContext);
+  const { caseId,subsidId,userId } = useContext(CaseContext);
+  
 
-  const { addCase } = useContext(CaseContext);
+  // Sync context whenever caseData changes
+//   useEffect(() => {
+//     if (caseData) {
+//       addCase(caseData);
+//     }
+//   }, [caseData, addCase]);
 
-  useEffect(() => {
-    if (caseData) {
-      addCase(caseData);
-    }
-  }, [caseData, addCase]);
   const [formData, setFormData] = useState({
     caseId: caseId || "",
-    subsidId: subId || "",
+    subsidId: subsidId || "",
     pracNum: "",
     surName: "",
     foreName: "",
@@ -29,12 +31,23 @@ const AddPractitioner = ({caseData}) => {
     dateOfNotifiedMdu: "",
     dateClaimMode: "",
     specialityOfDOI: "",
-    userId: "admin"
+    userId: caseData.userId || "admin" // default from context
   });
 
   const [indemnifiers, setIndemnifiers] = useState([]);
   const [specialityOfDOI, setSpecialityOfDOI] = useState([]);
 
+  // ✅ Keep formData updated if caseData in context changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      caseId:caseId || "",
+      subsidId: subsidId || "",
+      userId: userId || "admin"
+    }));
+  }, [caseData]);
+
+  // Fetch dropdowns (cached in sessionStorage)
   useEffect(() => {
     const dropdowns = JSON.parse(sessionStorage.getItem("dropdowns"));
     if (dropdowns) {
@@ -61,17 +74,9 @@ const AddPractitioner = ({caseData}) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Convert to payload with correct DTO mapping
+  // DTO mapping for API
   const buildPayload = () => ({
-    caseId: formData.caseId,
-    subsidId: formData.subsidId,
-    pracNum: formData.pracNum,
-    surName: formData.surName,
-    foreName: formData.foreName,
-    initial: formData.initial,
-    sex: formData.sex,
-    indemnifier: formData.indemnifier,
-    role: formData.role,
+    ...formData,
     percentInvolMdu: formData.percentInvolMdu?.toString() || "0",
     dateOfInvolved: formData.dateOfInvolved
       ? new Date(formData.dateOfInvolved).toISOString()
@@ -81,9 +86,7 @@ const AddPractitioner = ({caseData}) => {
       : null,
     dateClaimMode: formData.dateClaimMode
       ? new Date(formData.dateClaimMode).toISOString()
-      : null,
-    specialityOfDOI: formData.specialityOfDOI,
-    userId: formData.userId
+      : null
   });
 
   // Validation
@@ -97,6 +100,7 @@ const AddPractitioner = ({caseData}) => {
     return null;
   };
 
+  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,17 +115,17 @@ const AddPractitioner = ({caseData}) => {
 
     try {
       const response = await axios.post(
-        "https://localhost:7277/api/Practioner/add-practitioner",
+        "https://localhost:7277/api/Practioner/AddPractioner",
         payload
       );
 
       console.log("✅ Form saved successfully:", response.data);
       alert("Practitioner saved successfully!");
 
-      // Reset form
+      // Reset form (keep caseId/subId from context)
       setFormData({
-        caseId: 0,
-        subsidId: "sub1",
+        caseId: caseData.caseId || "",
+        subsidId: caseData.subId || "",
         pracNum: "",
         surName: "",
         foreName: "",
@@ -134,7 +138,7 @@ const AddPractitioner = ({caseData}) => {
         dateOfNotifiedMdu: "",
         dateClaimMode: "",
         specialityOfDOI: "",
-        userId: "admin"
+        userId: caseData.userId || "admin"
       });
     } catch (error) {
       console.error("❌ Error saving practitioner:", error);
@@ -151,39 +155,44 @@ const AddPractitioner = ({caseData}) => {
   };
 
   return (
-
     <div className="form-container">
       <CaseHeader
-        caseId={formData.caseId}
-        subId={formData.subsidId}
-        status={formData.status}
-        liability={formData.mduLiability}
-        handler={formData.caseHandler1}
-        practitioner={formData.leadPractitioner}
+        caseId={caseData.caseId}
+        subId={caseData.subId}
+        status={caseData.status}
+        liability={caseData.liability}
+        handler={caseData.handler}
+        practitioner={caseData.practitioner}
       />
+
       <h2>Add Practitioner</h2>
       <form onSubmit={handleSubmit} className="prac-form">
+        {/* Prac Number */}
         <div className="form-section">
           <label>Prac Number</label>
           <input type="text" name="pracNum" value={formData.pracNum} onChange={handleChange} />
           <button type="button" className="search-btn">Search</button>
         </div>
 
+        {/* Surname */}
         <div className="form-section">
           <label>Surname *</label>
           <input type="text" name="surName" value={formData.surName} onChange={handleChange} />
         </div>
 
+        {/* ForeName */}
         <div className="form-section">
           <label>Forename</label>
           <input type="text" name="foreName" value={formData.foreName} onChange={handleChange} />
         </div>
 
+        {/* Initial */}
         <div className="form-section">
           <label>Initial</label>
           <input type="text" name="initial" value={formData.initial} onChange={handleChange} />
         </div>
 
+        {/* Sex */}
         <div className="form-section">
           <label>Sex</label>
           <select name="sex" value={formData.sex} onChange={handleChange}>
@@ -193,6 +202,7 @@ const AddPractitioner = ({caseData}) => {
           </select>
         </div>
 
+        {/* Indemnifier */}
         <div className="form-section">
           <label>Indemnifier *</label>
           <select name="indemnifier" value={formData.indemnifier} onChange={handleChange}>
@@ -203,6 +213,7 @@ const AddPractitioner = ({caseData}) => {
           </select>
         </div>
 
+        {/* Role */}
         <div className="form-section">
           <label>Role *</label>
           <select name="role" value={formData.role} onChange={handleChange}>
@@ -211,6 +222,7 @@ const AddPractitioner = ({caseData}) => {
           </select>
         </div>
 
+        {/* % Involvement */}
         <div className="form-section">
           <label>% Involvement of MDU *</label>
           <input
@@ -221,6 +233,7 @@ const AddPractitioner = ({caseData}) => {
           />
         </div>
 
+        {/* Dates */}
         <div className="form-section">
           <label>Date of Involvement *</label>
           <input type="date" name="dateOfInvolved" value={formData.dateOfInvolved} onChange={handleChange} />
@@ -236,6 +249,7 @@ const AddPractitioner = ({caseData}) => {
           <input type="date" name="dateClaimMode" value={formData.dateClaimMode} onChange={handleChange} />
         </div>
 
+        {/* Speciality */}
         <div className="form-section">
           <label>Case Speciality</label>
           <select
@@ -250,6 +264,7 @@ const AddPractitioner = ({caseData}) => {
           </select>
         </div>
 
+        {/* Buttons */}
         <div className="btn-section">
           <button type="submit" className="btn">Save</button>
           <button type="button" className="btn cancel">Cancel</button>
