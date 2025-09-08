@@ -18,7 +18,7 @@ function CreateCase() {
   const [initials, setInitials] = useState("");
   const [sex, setSex] = useState("Unknown");
 
-  const userId = "robin";
+  const userId = localStorage.getItem("userId") || "UnknownUser";
 
   const [formData, setFormData] = useState({
     caseType: "",

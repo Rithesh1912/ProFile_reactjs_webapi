@@ -1,69 +1,82 @@
-/* ViewPractioner.css */
-
+/* Container styles */
 .prac-container {
   max-width: 100%;
-  margin: 30px auto;
-  padding: 20px;
-  background: #ac2626;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 18px rgba(60, 90, 180, 0.10);
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
-.prac-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #2c3e50;
-  font-size: 24px;
-  font-weight: 600;
-}
-
+/* Table base styles */
 .prac-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
-  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(100, 120, 180, 0.08);
+  margin-bottom: 16px;
 }
 
-.prac-table th,
+/* Table header */
+.prac-table th {
+  background-color: #5665e2;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* Table body */
 .prac-table td {
-  border: 1px solid #8c2323;
-  padding: 12px;
+  padding: 10px 8px;
+  font-size: 0.97rem;
+  color: #333;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+/* Zebra stripes for readability */
+.prac-table tbody tr:nth-child(even) {
+  background-color: #f6f8fe;
+}
+
+.prac-table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.prac-table td:last-child,
+.prac-table th:last-child {
   text-align: center;
 }
 
-.prac-table th {
-  background-color: #3498db;
-  color: #c37979;
-  font-weight: bold;
+/* Button styling */
+.btn {
+  background-color: #5665e2;
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
+  margin: 2px 0;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(60, 100, 180, 0.08);
+  transition: background 0.2s, transform 0.18s;
 }
 
-.prac-table tr:nth-child(even) {
-  background-color: #ac2323;
+.btn:hover,
+.btn:focus {
+  background-color: #3e4fd3;
+  transform: translateY(-1px) scale(1.04);
+  outline: none;
 }
 
-.prac-table tr:hover {
-  background-color: #f1f1f1;
-}
-
+/* Loading message */
 .loading {
   text-align: center;
-  font-size: 18px;
-  margin-top: 40px;
-  color: #666;
-}
-
-.btn {
-  margin: 10px auto;
-  padding: 10px 20px;
-  background-color: #3498db;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #2980b9;
+  color: #5665e2;
+  font-weight: 500;
+  padding: 32px 0;
+  font-size: 1.10rem;
 }

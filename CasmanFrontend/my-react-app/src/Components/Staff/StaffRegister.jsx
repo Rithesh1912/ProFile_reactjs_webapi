@@ -14,9 +14,11 @@ const Register = () => {
     password: ""
   });
 
+  
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
+    formData.modifiedBy= localStorage.getItem("userId") || "UnknownUser";
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -25,6 +27,7 @@ const Register = () => {
     try {
       const res = await axios.post("https://localhost:7277/api/auth/register", formData);
       setMessage(res.data);
+      
     } catch (err) {
       setMessage(err.response?.data || "Registration failed");
     }
@@ -32,7 +35,7 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <h2>Register</h2>
+      <h2>Add Staff</h2>
       <form onSubmit={handleSubmit} className="auth-form">
         <input type="text" name="staffNo" placeholder="Staff No" onChange={handleChange} />
         <input type="text" name="staffId" placeholder="Staff ID" onChange={handleChange} />
@@ -40,7 +43,8 @@ const Register = () => {
         <input type="text" name="deptId" placeholder="Dept ID" onChange={handleChange} />
         <input type="text" name="team" placeholder="Team" onChange={handleChange} />
         <input type="number" name="teamId" placeholder="Team ID" onChange={handleChange} />
-        <input type="text" name="modifiedBy" placeholder="Modified By" onChange={handleChange} />
+        <input type="text" name="modifiedBy" placeholder="Modified By" value={formData.modifiedBy} readOnly />
+        
         <input type="password" name="password" placeholder="Password" onChange={handleChange} />
         <button type="submit">Register</button>
       </form>

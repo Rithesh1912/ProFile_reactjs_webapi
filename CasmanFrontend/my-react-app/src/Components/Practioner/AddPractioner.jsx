@@ -6,7 +6,7 @@ import CaseHeader from "../CaseHeader/CaseHeader";
 
 const AddPractitioner = () => {
     const {caseData, setCaseData} = useContext(CaseContext);
-  const { caseId,subsidId,userId } = useContext(CaseContext);
+  
   
 
   // Sync context whenever caseData changes
@@ -17,8 +17,8 @@ const AddPractitioner = () => {
 //   }, [caseData, addCase]);
 
   const [formData, setFormData] = useState({
-    caseId: caseId || "",
-    subsidId: subsidId || "",
+    caseId: caseData.caseId || "",
+    subsidId: caseData.subsidId || "",
     pracNum: "",
     surName: "",
     foreName: "",
@@ -37,17 +37,17 @@ const AddPractitioner = () => {
   const [indemnifiers, setIndemnifiers] = useState([]);
   const [specialityOfDOI, setSpecialityOfDOI] = useState([]);
 
-  // ✅ Keep formData updated if caseData in context changes
+  
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      caseId:caseId || "",
-      subsidId: subsidId || "",
-      userId: userId || "admin"
+      caseId:caseData.caseId || "",
+      subsidId: caseData.subsidId || "",
+      userId: localStorage.getItem("userId") || "admin"
     }));
   }, [caseData]);
 
-  // Fetch dropdowns (cached in sessionStorage)
+  
   useEffect(() => {
     const dropdowns = JSON.parse(sessionStorage.getItem("dropdowns"));
     if (dropdowns) {
@@ -68,13 +68,13 @@ const AddPractitioner = () => {
     }
   }, []);
 
-  // Generic change handler
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // DTO mapping for API
+  
   const buildPayload = () => ({
     ...formData,
     percentInvolMdu: formData.percentInvolMdu?.toString() || "0",
@@ -89,7 +89,7 @@ const AddPractitioner = () => {
       : null
   });
 
-  // Validation
+  
   const validateForm = () => {
     if (!formData.surName.trim()) return "Surname is required.";
     if (!formData.indemnifier) return "Indemnifier is required.";
@@ -100,7 +100,7 @@ const AddPractitioner = () => {
     return null;
   };
 
-  // Submit
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,7 +111,7 @@ const AddPractitioner = () => {
     }
 
     const payload = buildPayload();
-    console.log("✅ Payload sent to API:", payload);
+    
 
     try {
       const response = await axios.post(
@@ -119,13 +119,13 @@ const AddPractitioner = () => {
         payload
       );
 
-      console.log("✅ Form saved successfully:", response.data);
+      
       alert("Practitioner saved successfully!");
 
-      // Reset form (keep caseId/subId from context)
+      
       setFormData({
         caseId: caseData.caseId || "",
-        subsidId: caseData.subId || "",
+        subsidId: caseData.subsidId || "",
         pracNum: "",
         surName: "",
         foreName: "",
@@ -138,7 +138,7 @@ const AddPractitioner = () => {
         dateOfNotifiedMdu: "",
         dateClaimMode: "",
         specialityOfDOI: "",
-        userId: caseData.userId || "admin"
+        userId: localStorage.getItem("userId") || "admin"
       });
     } catch (error) {
       console.error("❌ Error saving practitioner:", error);
@@ -156,14 +156,14 @@ const AddPractitioner = () => {
 
   return (
     <div className="form-container">
-      <CaseHeader
+      {/* <CaseHeader
         caseId={caseData.caseId}
         subId={caseData.subId}
         status={caseData.status}
         liability={caseData.liability}
         handler={caseData.handler}
         practitioner={caseData.practitioner}
-      />
+      /> */}
 
       <h2>Add Practitioner</h2>
       <form onSubmit={handleSubmit} className="prac-form">
