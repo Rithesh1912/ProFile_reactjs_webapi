@@ -1,0 +1,92 @@
+.general-container {
+  background-color: #d6d7db;
+  border: 1px solid #7d8ca3;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.form-title-general {
+  background-color: #2d4c7f;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin: 15px -15px 15px -15px;;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #a0a0a0;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #a0a0a0;
+  border-right: 1px solid #a0a0a0;
+}
+
+.form-row:last-child {
+  border-bottom: none;
+}
+
+.form-row label {
+  background-color: #e5e5e5;
+  padding: 6px;
+  min-width: 180px;
+  border-right: 1px solid #a0a0a0;
+}
+
+.form-row input,
+.form-row select {
+  flex: 1;
+  padding: 4px;
+  border: none;
+  outline: none;
+}
+
+/* .postcode-row button {
+  margin-left: 5px;
+  padding: 4px 10px;
+  background-color: #2d4c7f;
+  color: white;
+  border: none;
+  cursor: pointer;
+} */
+
+.postcode-row button:hover {
+  background-color: #1f3558;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 8px;
+}
+
+.button-group button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.button-group img {
+  display: block;
+}
+
+input[type="date"] {
+  padding: 2px;
+}
+
+select {
+  background-color: white;
+}
+
+form {
+  border: 1px solid #7d8ca3;
+}
+

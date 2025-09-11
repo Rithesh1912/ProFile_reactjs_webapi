@@ -1,0 +1,50 @@
+.container {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+/* Box styles */
+.box {
+    display: flex;
+    flex-wrap: wrap;          /* allow items to wrap instead of overflowing */
+    gap: 15px;
+    border: 1px solid #ccc;
+    padding: 20px 30px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 100%;          /* keep inside screen */
+    box-sizing: border-box;
+}
+
+/* Input styles */
+.input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    min-width: 120px;         /* prevent words from getting cut */
+    flex: 1 1 auto;           /* responsive: grow & shrink */
+}
+
+/* Buttons and clickable items */
+.casedetails,
+.search,
+.cnclbtn {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Extra safety: prevent global horizontal scroll */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+        
+}
