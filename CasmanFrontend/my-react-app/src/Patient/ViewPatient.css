@@ -1,0 +1,226 @@
+/* Container */
+.patient-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f7f9;
+}
+
+.patient-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+/* Table */
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.patient-table th,
+.patient-table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.patient-table th {
+  background-color: #eef3f7;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.patient-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.patient-table tr:hover {
+  background-color: #f4fbff;
+}
+
+/* Buttons small */
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  transition: background 0.15s ease, transform 0.08s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+.btn-edit {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, transform 0.08s ease;
+}
+
+.btn-edit:hover {
+  background-color: #1e8449;
+  transform: translateY(-1px);
+}
+
+/* Add Button */
+.btn-add {
+  background-color: #4b0ef4;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.98rem;
+  margin: 15px auto 0;
+  display: block;
+  transition: background 0.18s ease, transform 0.08s ease;
+}
+
+.btn-add:hover {
+  background-color: #225f8b;
+  transform: translateY(-2px);
+}
+
+/* ============================
+   Modal
+   ============================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 40, 50, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 24px;
+}
+
+.modal-content {
+  background: #fff;
+  width: 780px;
+  max-width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 26px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  animation: slideIn 0.22s ease;
+}
+
+.modal-content h2 {
+  margin: 0 0 14px 0;
+  text-align: center;
+  color: #243445;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* Form layout inside modal */
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+  align-items: start;
+}
+
+.modal-form label {
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.modal-form input,
+.modal-form select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #cfcfcf;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+.address-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+
+/* Modal actions (buttons) */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  grid-column: 1 / -1;
+}
+
+.btn-cancel {
+  background-color: #7f8c8d;
+  color: #fff;
+  padding: 100px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+
+/* 
+.btn-cancel:hover {
+  background-color: #636e72;
+  transform: translateY(-1px);
+} */
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive: single column on narrow screens */
+@media (max-width: 720px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-content {
+    padding: 18px;
+  }
+}

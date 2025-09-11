@@ -3,22 +3,15 @@ import "./AddPractioner.css";
 import axios from "axios";
 import { CaseContext } from "../ContextAPI/CaseContext";
 import CaseHeader from "../CaseHeader/CaseHeader";
+import { useNavigate } from "react-router-dom";
 
 const AddPractitioner = () => {
-    const {caseData, setCaseData} = useContext(CaseContext);
-  const { caseId,subsidId,userId } = useContext(CaseContext);
-  
-
-  // Sync context whenever caseData changes
-//   useEffect(() => {
-//     if (caseData) {
-//       addCase(caseData);
-//     }
-//   }, [caseData, addCase]);
+  const { caseData } = useContext(CaseContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    caseId: caseId || "",
-    subsidId: subsidId || "",
+    caseId: caseData.caseId || "",
+    subsidId: caseData.subsidId || "",
     pracNum: "",
     surName: "",
     foreName: "",
@@ -31,50 +24,55 @@ const AddPractitioner = () => {
     dateOfNotifiedMdu: "",
     dateClaimMode: "",
     specialityOfDOI: "",
-    userId: caseData.userId || "admin" // default from context
+    userId: localStorage.getItem("userId") || "admin"
   });
 
   const [indemnifiers, setIndemnifiers] = useState([]);
   const [specialityOfDOI, setSpecialityOfDOI] = useState([]);
 
-  // ✅ Keep formData updated if caseData in context changes
+  // Update form data when caseData changes
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      caseId:caseId || "",
-      subsidId: subsidId || "",
-      userId: userId || "admin"
+      caseId: caseData.caseId || "",
+      subsidId: caseData.subsidId || "",
+      userId: localStorage.getItem("userId") || "admin"
     }));
   }, [caseData]);
 
-  // Fetch dropdowns (cached in sessionStorage)
+  // Fetch dropdowns from cache or API
   useEffect(() => {
-    const dropdowns = JSON.parse(sessionStorage.getItem("dropdowns"));
-    if (dropdowns) {
-      setIndemnifiers(dropdowns.indemnifiers || []);
-      setSpecialityOfDOI(dropdowns.specialties || []);
-    } else {
-      const fetchDropdowns = async () => {
-        try {
-          const res = await axios.get("https://localhost:7277/api/DropDown/getall");
-          sessionStorage.setItem("dropdowns", JSON.stringify(res.data));
-          setIndemnifiers(res.data.indemnifiers || []);
-          setSpecialityOfDOI(res.data.specialties || []);
-        } catch (err) {
-          console.error("Error fetching dropdowns:", err);
+    const getDropdownsFromCache = async () => {
+      try {
+        const cache = await caches.open("dropdowns");
+        const cachedResponse = await cache.match("dropdowns");
+        let dropdowns;
+
+        if (cachedResponse) {
+          dropdowns = await cachedResponse.json();
+        } else {
+          const res = await axios.get(
+            "https://localhost:7277/api/DropDown/getall"
+          );
+          dropdowns = res.data;
+          await cache.put("dropdowns", new Response(JSON.stringify(dropdowns)));
         }
-      };
-      fetchDropdowns();
-    }
+
+        setIndemnifiers(dropdowns.indemnifiers || []);
+        setSpecialityOfDOI(dropdowns.specialties || []);
+      } catch (err) {
+        console.error("Error fetching dropdowns:", err);
+      }
+    };
+
+    getDropdownsFromCache();
   }, []);
 
-  // Generic change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // DTO mapping for API
   const buildPayload = () => ({
     ...formData,
     percentInvolMdu: formData.percentInvolMdu?.toString() || "0",
@@ -89,7 +87,6 @@ const AddPractitioner = () => {
       : null
   });
 
-  // Validation
   const validateForm = () => {
     if (!formData.surName.trim()) return "Surname is required.";
     if (!formData.indemnifier) return "Indemnifier is required.";
@@ -100,7 +97,6 @@ const AddPractitioner = () => {
     return null;
   };
 
-  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,21 +107,20 @@ const AddPractitioner = () => {
     }
 
     const payload = buildPayload();
-    console.log("✅ Payload sent to API:", payload);
 
     try {
-      const response = await axios.post(
-        "https://localhost:7277/api/Practioner/AddPractioner",
+      await axios.post(
+        "https://localhost:7277/api/Practioner/AddPractitioner",
         payload
       );
 
-      console.log("✅ Form saved successfully:", response.data);
       alert("Practitioner saved successfully!");
+      navigate("/ViewPractioner");
 
-      // Reset form (keep caseId/subId from context)
+      // Reset form
       setFormData({
         caseId: caseData.caseId || "",
-        subsidId: caseData.subId || "",
+        subsidId: caseData.subsidId || "",
         pracNum: "",
         surName: "",
         foreName: "",
@@ -138,18 +133,16 @@ const AddPractitioner = () => {
         dateOfNotifiedMdu: "",
         dateClaimMode: "",
         specialityOfDOI: "",
-        userId: caseData.userId || "admin"
+        userId: localStorage.getItem("userId") || "admin"
       });
     } catch (error) {
       console.error("❌ Error saving practitioner:", error);
-
       if (error.response) {
         console.error("❌ Backend error response:", error.response.data);
         if (error.response.data.errors) {
           console.error("❌ Validation errors:", error.response.data.errors);
         }
       }
-
       alert("Failed to save practitioner. Please check inputs or server.");
     }
   };
@@ -170,26 +163,48 @@ const AddPractitioner = () => {
         {/* Prac Number */}
         <div className="form-section">
           <label>Prac Number</label>
-          <input type="text" name="pracNum" value={formData.pracNum} onChange={handleChange} />
-          <button type="button" className="search-btn">Search</button>
+          <input
+            type="text"
+            name="pracNum"
+            value={formData.pracNum}
+            onChange={handleChange}
+          />
+          <button type="button" className="search-btn">
+            Search
+          </button>
         </div>
 
         {/* Surname */}
         <div className="form-section">
           <label>Surname *</label>
-          <input type="text" name="surName" value={formData.surName} onChange={handleChange} />
+          <input
+            type="text"
+            name="surName"
+            value={formData.surName}
+            onChange={handleChange}
+          />
         </div>
 
         {/* ForeName */}
         <div className="form-section">
           <label>Forename</label>
-          <input type="text" name="foreName" value={formData.foreName} onChange={handleChange} />
+          <input
+            type="text"
+            name="foreName"
+            value={formData.foreName}
+            onChange={handleChange}
+          />
         </div>
 
         {/* Initial */}
         <div className="form-section">
           <label>Initial</label>
-          <input type="text" name="initial" value={formData.initial} onChange={handleChange} />
+          <input
+            type="text"
+            name="initial"
+            value={formData.initial}
+            onChange={handleChange}
+          />
         </div>
 
         {/* Sex */}
@@ -205,10 +220,16 @@ const AddPractitioner = () => {
         {/* Indemnifier */}
         <div className="form-section">
           <label>Indemnifier *</label>
-          <select name="indemnifier" value={formData.indemnifier} onChange={handleChange}>
+          <select
+            name="indemnifier"
+            value={formData.indemnifier}
+            onChange={handleChange}
+          >
             <option value="">Select</option>
             {indemnifiers.map((item, idx) => (
-              <option key={idx} value={item}>{item}</option>
+              <option key={idx} value={item}>
+                {item}
+              </option>
             ))}
           </select>
         </div>
@@ -236,17 +257,32 @@ const AddPractitioner = () => {
         {/* Dates */}
         <div className="form-section">
           <label>Date of Involvement *</label>
-          <input type="date" name="dateOfInvolved" value={formData.dateOfInvolved} onChange={handleChange} />
+          <input
+            type="date"
+            name="dateOfInvolved"
+            value={formData.dateOfInvolved}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="form-section">
           <label>Date Notified to MDU *</label>
-          <input type="date" name="dateOfNotifiedMdu" value={formData.dateOfNotifiedMdu} onChange={handleChange} />
+          <input
+            type="date"
+            name="dateOfNotifiedMdu"
+            value={formData.dateOfNotifiedMdu}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="form-section">
           <label>Date Claim Made *</label>
-          <input type="date" name="dateClaimMode" value={formData.dateClaimMode} onChange={handleChange} />
+          <input
+            type="date"
+            name="dateClaimMode"
+            value={formData.dateClaimMode}
+            onChange={handleChange}
+          />
         </div>
 
         {/* Speciality */}
@@ -259,15 +295,25 @@ const AddPractitioner = () => {
           >
             <option value="">Select</option>
             {specialityOfDOI.map((item, idx) => (
-              <option key={idx} value={item}>{item}</option>
+              <option key={idx} value={item}>
+                {item}
+              </option>
             ))}
           </select>
         </div>
 
         {/* Buttons */}
         <div className="btn-section">
-          <button type="submit" className="btn">Save</button>
-          <button type="button" className="btn cancel">Cancel</button>
+          <button type="submit" className="btn">
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/ViewPractioner")}
+            className="btn"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

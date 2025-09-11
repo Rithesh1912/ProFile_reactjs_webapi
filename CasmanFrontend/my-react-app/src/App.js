@@ -8,8 +8,11 @@ import ViewPractioner from './Components/Practioner/ViewPractioner';
 import AddPractitioner from './Components/Practioner/AddPractioner';
 import { CaseProvider } from './Components/ContextAPI/CaseContext';
 import RecentCases from './Components/RecentCases/RecentCases';
-import { DropdownsProvider } from './Components/ContextAPI/DropDownContext';import Register from './Components/Staff/StaffRegister';
+import { DropdownsProvider } from './Components/ContextAPI/DropDownContext';
+import Register from './Components/Staff/StaffRegister';
 import Login from './Components/Staff/StaffLogin';    
+import ViewPatient from './Patient/ViewPatient';
+import AddPatient from './Patient/AddPatient';
 
 
 function App() {
@@ -45,6 +48,9 @@ function App() {
           <Route path='/ViewPractioner' element={<ViewPractioner></ViewPractioner>}></Route>
           <Route path='/AddPractioner' element={<AddPractitioner></AddPractitioner>}></Route>
           <Route path='/RecentCases' element={<RecentCases/>}></Route>
+          <Route path='/ViewPatient' element={<ViewPatient></ViewPatient>}></Route>
+          <Route path='/AddPatient' element={<AddPatient></AddPatient>}></Route>
+          
         </Routes>
       </Router>
       </CaseProvider>

@@ -149,6 +149,9 @@ function Header() {
     if (item === 'Recent Cases') {
       navigate('/RecentCases');
     }
+    if (item === 'Patient') {
+      navigate('/ViewPatient')
+    }
   };
 
   const renderSubmenu = (submenu) => {

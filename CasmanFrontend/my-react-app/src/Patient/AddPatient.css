@@ -1,0 +1,117 @@
+/* AddPatient.css */
+
+/* General form styles */
+.add-patient {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #cd82c53b; /* soft blue background */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: Arial, sans-serif;
+}
+
+/* Section headers */
+.add-patient h2 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  color: #004080; /* dark blue header */
+  border-bottom: 2px solid #99c2ff; /* light blue underline */
+  padding-bottom: 5px;
+}
+
+/* Each form row */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.form-row label {
+  width: 150px;
+  margin-right: 10px;
+  font-weight: bold;
+  color: #003366; /* dark blue label text */
+}
+
+.form-row input[type="text"],
+.form-row input[type="date"],
+.form-row select {
+  flex: 1;
+  padding: 7px 12px;
+  border: 1px solid #99c2ff; /* light blue border */
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #ffffff; /* white input */
+}
+
+.form-row input[type="checkbox"] {
+  margin-right: 5px;
+  transform: scale(1.2);
+  margin-left: 5px;
+}
+
+/* Checkbox group adjustments */
+.form-row input[type="checkbox"] + label {
+  margin-right: 15px;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.form-actions button {
+  padding: 9px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.form-actions button[type="button"] {
+  background-color: #df2518;
+  color: #003366;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #df2518;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .form-row input[type="text"],
+  .form-row input[type="date"],
+  .form-row select {
+    width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
