@@ -120,7 +120,7 @@ namespace CasmanSln.DataAccess.Repository
 
                     cmd.Parameters.AddWithValue("@CaseId", request.CaseId);
                     cmd.Parameters.AddWithValue("@SubsidId", request.SubsidId ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@PracNum", request.PracNum ?? (object)DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@PracNum", request.PracNum ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@SurName", request.SurName ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@ForeName", request.ForeName ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Initial", request.Initial ?? (object)DBNull.Value);

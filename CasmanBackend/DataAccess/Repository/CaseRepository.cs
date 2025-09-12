@@ -64,58 +64,58 @@ namespace CasmanSln.DataAccess.Repository
 
             return response;
         }
-        public async Task<List<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request)
-        {
-            var results = new List<CaseSearchResponseDto>();
+        //public async Task<List<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request)
+        //{
+        //    var results = new List<CaseSearchResponseDto>();
 
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            using (SqlCommand cmd = new SqlCommand("CD_SP_SEARCHCASES_RTR", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-         // Match SP parameters exactly(VARCHAR)
-        cmd.Parameters.Add("@CaseID", SqlDbType.VarChar, 7).Value =
-            string.IsNullOrWhiteSpace(request.CaseID) ? (object)DBNull.Value : request.CaseID;
+        //    using (SqlConnection conn = new SqlConnection(_connectionString))
+        //    using (SqlCommand cmd = new SqlCommand("CD_SP_SEARCHCASES_RTR", conn))
+        //    {
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        // // Match SP parameters exactly(VARCHAR)
+        //cmd.Parameters.Add("@CaseID", SqlDbType.VarChar, 7).Value =
+        //    string.IsNullOrWhiteSpace(request.CaseID) ? (object)DBNull.Value : request.CaseID;
 
-                cmd.Parameters.Add("@SubsidID", SqlDbType.VarChar, 2).Value =
-                    string.IsNullOrWhiteSpace(request.SubsidID) ? (object)DBNull.Value : request.SubsidID;
-                Console.WriteLine($"Executing SP with CaseID={request.CaseID}, SubsidID={request.SubsidID}");
+        //        cmd.Parameters.Add("@SubsidID", SqlDbType.VarChar, 2).Value =
+        //            string.IsNullOrWhiteSpace(request.SubsidID) ? (object)DBNull.Value : request.SubsidID;
+        //        Console.WriteLine($"Executing SP with CaseID={request.CaseID}, SubsidID={request.SubsidID}");
 
 
-                await conn.OpenAsync();
+        //        await conn.OpenAsync();
 
-                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
-                {
-                    if (!reader.HasRows)
-                    {
-                        Console.WriteLine("No rows returned from stored procedure.");
-                    }
-                    while (await reader.ReadAsync())
-                    {
-                        results.Add(new CaseSearchResponseDto
-                        {
-                            CaseId = reader["case_id"].ToString(),
-                            SubsidId = reader["subsid_id"].ToString(),
-                            MduUnit = reader["mdu_unit"]?.ToString(),
-                            IncdtDate = reader["incdt_date"] == DBNull.Value? (DateTime?)null: Convert.ToDateTime(reader["incdt_date"]),
+        //        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+        //        {
+        //            if (!reader.HasRows)
+        //            {
+        //                Console.WriteLine("No rows returned from stored procedure.");
+        //            }
+        //            while (await reader.ReadAsync())
+        //            {
+        //                results.Add(new CaseSearchResponseDto
+        //                {
+        //                    CaseId = reader["case_id"].ToString(),
+        //                    SubsidId = reader["subsid_id"].ToString(),
+        //                    MduUnit = reader["mdu_unit"]?.ToString(),
+        //                    IncdtDate = reader["incdt_date"] == DBNull.Value? (DateTime?)null: Convert.ToDateTime(reader["incdt_date"]),
 
-                            OpenDate = reader["open_date"] as DateTime?,
-                            CloseDate = reader["close_date"] as DateTime?,
-                            SecondScrtUsr = reader["second_scrt_usr"]?.ToString(),
-                            UserId = reader["user_id"]?.ToString(),
-                            DateLastUpdated = reader["date_last_updated"] as DateTime?,
-                            ThirdScrtUsr = reader["third_scrt_usr"]?.ToString(),
-                            YearOfCase = reader["YearOfCase"] as int?,
-                            ClaimDate = reader["CLAIM_DATE"] as DateTime?,
-                            LegalCaseDocumentStatus = reader["Legal_case_Document_Status"]?.ToString(),
-                            CaseCreateSource = reader["Case_Create_Source"]?.ToString(),
-                            CaseUri = reader["case_uri"]?.ToString()
-                        });
-                    }
-                }
-            }
+        //                    OpenDate = reader["open_date"] as DateTime?,
+        //                    CloseDate = reader["close_date"] as DateTime?,
+        //                    SecondScrtUsr = reader["second_scrt_usr"]?.ToString(),
+        //                    UserId = reader["user_id"]?.ToString(),
+        //                    DateLastUpdated = reader["date_last_updated"] as DateTime?,
+        //                    ThirdScrtUsr = reader["third_scrt_usr"]?.ToString(),
+        //                    YearOfCase = reader["YearOfCase"] as int?,
+        //                    ClaimDate = reader["CLAIM_DATE"] as DateTime?,
+        //                    LegalCaseDocumentStatus = reader["Legal_case_Document_Status"]?.ToString(),
+        //                    CaseCreateSource = reader["Case_Create_Source"]?.ToString(),
+        //                    CaseUri = reader["case_uri"]?.ToString()
+        //                });
+        //            }
+        //        }
+        //    }
 
-            return results;
-        }
+        //    return results;
+        //}
 
         public async Task<UpdateCaseResponseDto>UpdateCaseDetails(UpdateCaseRequestDto request)
         {
@@ -197,6 +197,76 @@ namespace CasmanSln.DataAccess.Repository
                 }
             }
 
+        }
+        public async Task<ResponseDtos.PagedResult<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request)
+        {
+            var results = new List<CaseSearchResponseDto>();
+            int totalCount = 0;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("CD_SP_SEARCHCASES_RTR", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.Add("@CaseID", SqlDbType.VarChar, 7).Value =
+                        string.IsNullOrWhiteSpace(request.CaseID) ? (object)DBNull.Value : request.CaseID;
+
+                    cmd.Parameters.Add("@SubsidID", SqlDbType.VarChar, 2).Value =
+                        string.IsNullOrWhiteSpace(request.SubsidID) ? (object)DBNull.Value : request.SubsidID;
+
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value =
+                        request.PageNumber <= 0 ? 1 : request.PageNumber;
+
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value =
+                        request.PageSize <= 0 ? 10 : request.PageSize;
+
+                    await conn.OpenAsync();
+
+                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        // First result set = paginated rows
+                        while (await reader.ReadAsync())
+                        {
+                            results.Add(new CaseSearchResponseDto
+                            {
+                                CaseId = reader["case_id"].ToString(),
+                                SubsidId = reader["subsid_id"].ToString(),
+                                MduUnit = reader["mdu_unit"]?.ToString(),
+                                IncdtDate = reader["incdt_date"] == DBNull.Value
+                                    ? (DateTime?)null
+                                    : Convert.ToDateTime(reader["incdt_date"]),
+                                OpenDate = reader["open_date"] as DateTime?,
+                                CloseDate = reader["close_date"] as DateTime?,
+                                SecondScrtUsr = reader["second_scrt_usr"]?.ToString(),
+                                UserId = reader["user_id"]?.ToString(),
+                                DateLastUpdated = reader["date_last_updated"] as DateTime?,
+                                ThirdScrtUsr = reader["third_scrt_usr"]?.ToString(),
+                                YearOfCase = reader["YearOfCase"] as int?,
+                                ClaimDate = reader["CLAIM_DATE"] as DateTime?,
+                                LegalCaseDocumentStatus = reader["Legal_case_Document_Status"]?.ToString(),
+                                CaseCreateSource = reader["Case_Create_Source"]?.ToString(),
+                                CaseUri = reader["case_uri"]?.ToString()
+                            });
+                        }
+
+
+                        if (await reader.NextResultAsync() && await reader.ReadAsync())
+                        {
+                            totalCount = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return new ResponseDtos.PagedResult<CaseSearchResponseDto>
+            {
+                Items = results,
+                TotalCount = totalCount,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize
+            };
         }
 
     }

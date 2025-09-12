@@ -7,7 +7,7 @@ namespace CasmanSln.DataAccess.Interface
     public interface ICaseRepository
     {
         Task<CreateCaseResponseDto> CreateNewCaseAsync(CreateCaseRequestDto request);
-        Task<List<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request);
+        Task<PagedResult<CaseSearchResponseDto>> SearchCases(CaseSearchRequestDto request);
 
         Task<UpdateCaseResponseDto>UpdateCaseDetails(UpdateCaseRequestDto request);
 

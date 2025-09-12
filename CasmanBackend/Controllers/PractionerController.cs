@@ -1,142 +1,99 @@
 ﻿using CasmanSln.DataAccess.Interface;
 using CasmanSln.DataAccess.Repository;
-using CasmanSln.Models;
 using CasmanSln.RequestDtos;
-using CasmanSln.ResponseDtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CasmanSln.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
     public class PractionerController : ControllerBase
     {
-        private readonly IPractionerDetails practionerDetails;
+
+        private readonly IPractionerRepository practionerRepository;
         private readonly ILogger<PractionerController> logger;
-        
 
-        public PractionerController(IPractionerDetails practionerDetails, ILogger<PractionerController> logger) {
 
-            this.practionerDetails = practionerDetails;
+        public PractionerController(IPractionerRepository practionerRepository, ILogger<PractionerController> logger)
+        {
+
+            this.practionerRepository = practionerRepository;
             this.logger = logger;
         }
-        [HttpGet]
-        [Route("GetAllPractionerDetails")]
-        public async Task<IActionResult> GetAllPractionerDetails()
+
+        [HttpGet("GetPractitionerByCaseId/{caseId}/{subId}")]
+        public async Task<IActionResult> GetPractitionersByCaseId(string caseId, string subId)
         {
             try
             {
-                var details = await practionerDetails.GetAllPractionerDetails();
-                return Ok(details);
+                var practitioners = await practionerRepository.GetPractionerDetailsByCaseID(caseId, subId);
+
+                if (practitioners == null || !practitioners.Any())
+                    return NotFound(new { message = "No practitioners found for this case/subsid" });
+
+                return Ok(practitioners);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error occured while fetching all practitioners");
-                return StatusCode(500, new { message = "An error occurred while retrieving practitioner details." });
+                return StatusCode(500, new { message = "Error fetching practitioners", details = ex.Message });
+            }
+        }
+        [HttpPost("AddPractitioner")]
+        public async Task<IActionResult> AddPractDetailsByCaseID([FromBody] AddPractRequestDto request)
+        {
+            if (request == null)
+                return BadRequest(new { isSuccess = false, message = "Request body is missing" });
+
+            try
+            {
+                bool added = await practionerRepository.AddPractDetailsByCaseID(request);
+
+                if (added)
+                    return Ok(new { isSuccess = true, message = "Practitioner added successfully" });
+                else
+                    return BadRequest(new { isSuccess = false, message = "Insert failed. No rows affected." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { isSuccess = false, message = $"Database error: {ex.Message}" });
             }
 
         }
-        [HttpGet]
-        [Route("GetPractionerByCaseId/{caseId}")]
-        public async Task<IActionResult> GetPractionerDetailsByCaseID(string caseId, string subId)
-        {
-            try
-            {
-                var pracdetail = await practionerDetails.GetPractionerByCaseId(caseId, subId);
-                if (pracdetail == null)
-                    return NotFound(new { message = "Practitioner not found" });
-                return Ok(pracdetail);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error fetching practitioner by caseId: {caseId}, subId: {subId}", caseId, subId);
-                return StatusCode(500, new { message = "An error occurred while retrieving the practitioner." });
-            }
 
-            }
-
-        [HttpPost]
-        [Route("CreatePractioner")]
-        public async Task<IActionResult> CreatePractioner([FromBody] CasePractioner prac)
+        [HttpDelete("Deletepractionerby/{CaseId}/{SubsidId}/{prac_num}")]
+        public async Task<IActionResult> DeletePractioner(string CaseId, string SubsidId, string prac_num)
         {
             try
             {
-                var newPrac = await practionerDetails.CreatePractioner(prac);
-                return CreatedAtAction(nameof(GetPractionerDetailsByCaseID), new { caseId = prac.CaseId, subId = prac.SubsidId }, newPrac);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error creating practitioner");
-                return StatusCode(500, new { message = "An error occurred while creating the practitioner." });
-            }
-        }
-        [HttpPut("{pracNum}")]
-      
-        public async Task<IActionResult> UpdatePractionerDetails(string pracNum, [FromBody] CasePractioner newPrac)
-        {
-            if (pracNum.IsNullOrEmpty())
-                return BadRequest(new { message = "pracNum is required" });
-            try
-            {
-                var updatedPrac = await practionerDetails.UpdatePractionerDetails(pracNum, newPrac);
-                if (updatedPrac == null)
-                {
-                    return NotFound(new { message = "Practitioner not found" });
-                }
-                return Ok(updatedPrac);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error updating practitioner with pracNum: {pracNum}", pracNum);
-                return StatusCode(500, new { message = "An error occurred while updating the practitioner." });
-            }
-            }
-
-        [HttpDelete("{pracNum}")]
-     
-        public async Task<IActionResult> DeletePractioner(string pracNum)
-        {
-            if (string.IsNullOrWhiteSpace(pracNum))
-                return BadRequest(new { message = "pracNum is required" });
-            try
-            {
-                var deleted = await practionerDetails.DeletePractioner(pracNum);
+                bool deleted = await practionerRepository.DeletePractioner(CaseId, SubsidId, prac_num);
 
                 if (!deleted)
-                    return NotFound(new {message="Practioner Not Found"});
+                    return NotFound(new { message = "practioner not found" });
 
-                return Ok(new { message = "Delted Successfully" });
-
+                return Ok(new { message = "practioner deleted successfully" });
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error deleting practitioner with pracNum: {pracNum}", pracNum);
-                return StatusCode(500, new { message = "An error occurred while deleting the practitioner." });
+                return StatusCode(500, new { message = "Error deleting practioner", details = ex.Message });
             }
-
         }
-        [HttpPost("add-practitioner")]
-        public async Task<IActionResult> AddPractitionerDetails([FromBody] AddPractRequestDto dto)
+
+        [HttpPut("UpdatePractionerby/{CaseId}/{SubsidId}/{prac_num}")]
+        public async Task<IActionResult> UpdatePractitioner(int CaseId,string SubsidId, string prac_num, [FromBody] UpdatePractionerRequestDTO request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
 
-            var result = await practionerDetails.AddPractitionerDetails(dto);
 
-            if (result.IsSuccess)
+                var result = await practionerRepository.UpdatePractitioner(CaseId, SubsidId, prac_num, request);
+                if (result == null) return NotFound();
                 return Ok(result);
-
-            if (result.Message.StartsWith("Error"))
-                return StatusCode(500, result);
-
-            return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = $"{ex.Message}" });
+            }
         }
-
-
-
-
 
     }
 }

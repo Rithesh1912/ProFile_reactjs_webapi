@@ -18,10 +18,11 @@ builder.Services.AddDbContext<CasmanDbContext>(options=>options.UseSqlServer(bui
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICaseDetails, CaseDetails>();
-builder.Services.AddScoped<IPractionerDetails,PractionerDetails>();
+builder.Services.AddScoped<IPractionerRepository, PractionerRepository>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<ICaseRepository, CaseRepository>();
 builder.Services.AddScoped<IDrpdwns, Drpdwns>();
+builder.Services.AddScoped<IPatientDetails,PatientRepository>();
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
