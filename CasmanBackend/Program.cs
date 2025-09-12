@@ -17,7 +17,7 @@ builder.Services.AddControllers()
 builder.Services.AddDbContext<CasmanDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("CasmanConnection")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ICaseDetails, CaseDetails>();
+//builder.Services.AddScoped<ICaseDetails, CaseDetails>();
 builder.Services.AddScoped<IPractionerRepository, PractionerRepository>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<ICaseRepository, CaseRepository>();
