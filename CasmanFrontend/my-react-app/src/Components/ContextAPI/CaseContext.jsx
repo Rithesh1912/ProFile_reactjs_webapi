@@ -4,7 +4,6 @@ export const CaseContext = createContext({
   caseData: null,
   setCaseData: () => {},
   RecentCases: [],
-  addCase: () => {}
 });
 
 export const CaseProvider = ({ children }) => {
@@ -13,40 +12,35 @@ export const CaseProvider = ({ children }) => {
     subsidId: null,
     userId: null,
     staffName: null,
-    status: null,
+    status: 'Active',
     liability: null,
     caseHandler1: null,
-    caseHandler2: null
+    caseHandler2: null,
   });
 
   const [RecentCases, setRecentCases] = useState([]);
+   const [isRestored, setIsRestored] = useState(false);
 
-  // Restore caseData from sessionStorage when app starts
-  useEffect(() => {
-    const savedCase = sessionStorage.getItem("caseData");
+   useEffect(() => {
+    const savedCase =
+      localStorage.getItem("caseData") || sessionStorage.getItem("caseData");
+
     if (savedCase) {
       setCaseData(JSON.parse(savedCase));
     }
+    setIsRestored(true); // Mark restore done
   }, []);
 
-  // Keep sessionStorage updated whenever caseData changes
+  // ✅ Only persist after restore is done
   useEffect(() => {
-    if (caseData && caseData.caseId) {
+    if (isRestored && caseData) {
+      localStorage.setItem("caseData", JSON.stringify(caseData));
       sessionStorage.setItem("caseData", JSON.stringify(caseData));
     }
-  }, [caseData]);
-
-  // const addCase = (newCase) => {
-  //   setCaseData(newCase);
-
-  //   setRecentCases((prevCases) => {
-  //     const updatedCases = prevCases.filter((c) => c.caseId !== newCase.caseId);
-  //     return [newCase, ...updatedCases].slice(0, 10);
-  //   });
-  // };
+  }, [caseData, isRestored]);
 
   return (
-    <CaseContext.Provider value={{ caseData, setCaseData, RecentCases }}>
+    <CaseContext.Provider value={{ caseData, setCaseData, RecentCases, setRecentCases }}>
       {children}
     </CaseContext.Provider>
   );

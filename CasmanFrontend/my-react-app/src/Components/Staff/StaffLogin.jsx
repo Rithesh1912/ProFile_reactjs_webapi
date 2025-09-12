@@ -3,9 +3,11 @@ import axios from "axios";
 import "./StaffLogin.css";
 import { useNavigate } from "react-router-dom";
 import { CaseContext } from "../ContextAPI/CaseContext";
+import { AuthContext } from "../ContextAPI/AuthContext";
 
 const Login = () => {
-     const { setCaseData } = useContext(CaseContext); 
+     const { setCaseData } = useContext(CaseContext);
+     const{setToken,setUserId}= useContext(AuthContext); 
   const [formData, setFormData] = useState({
     staffId: "",
     password: ""
@@ -18,23 +20,33 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("https://localhost:7277/api/auth/login", formData);
-      alert(`Welcome ${res.data.staffName}`);
-       setCaseData({
-        caseId: null,
-        subId: null,
-        staffId: res.data.staffId,
-        staffName: res.data.staffName,
-      });
-       setTimeout(() => {
-        navigate("/searchcasedetails");
-      }, 1000);
-    } catch (err) {
-      alert("Login failed");
-    }
-  };
+  e.preventDefault();
+  try {
+    const res = await axios.post("https://localhost:7277/api/auth/login", formData);
+
+    alert(`Welcome ${res.data.staffName}`);
+     navigate("/searchcasedetails");
+
+
+    localStorage.setItem("userId", res.data.staffId);
+    localStorage.setItem("token", res.data.token);
+
+    // ✅ Then update context
+    setToken(res.data.token);
+    setUserId(res.data.staffId);
+
+    setCaseData({
+      
+      staffId: res.data.staffId,
+      userId: res.data.staffName,
+    });
+
+  } catch (err) {
+    alert("Login failed");
+    console.error("Login error:", err);
+  }
+};
+
 
   return (
     <div className="auth-container">

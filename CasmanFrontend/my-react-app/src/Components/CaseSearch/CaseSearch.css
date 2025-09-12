@@ -65,3 +65,19 @@
   background: #ccc;
   cursor: not-allowed;
 }
+
+.table-wrapper {
+  position: relative;
+}
+.loading-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.75);
+  color: #5665e2;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+

@@ -108,14 +108,14 @@ function General() {
 
   return (
     <div>
-      <CaseHeader
+      {/* <CaseHeader
         caseId={caseId}
         subId={subsidId}
         status={status}
         liability={formData.mduLiability}
         handler={formData.caseHandler1}
         practitioner={formData.leadPractitioner}
-      />
+      /> */}
       <form className="general-container" onSubmit={handleSubmit}>
         <h3 className="form-title-general">General</h3>
 

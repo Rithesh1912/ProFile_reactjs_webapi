@@ -11,7 +11,10 @@ function Header() {
     month: 'long',
     year: 'numeric',
   });
-  const{staffId,staffName}=React.useContext(CaseContext); 
+  const{caseData}=React.useContext(CaseContext); 
+  const staffName = localStorage.getItem('userId')|| 'Guest';
+  
+  
 
   const tabs = [
     {
@@ -151,6 +154,12 @@ function Header() {
     }
     if (item === 'Patient') {
       navigate('/ViewPatient')
+    }
+    if(item==='Conflict Search'){
+      navigate('/ConflictSearch');
+    }
+    if(item==='Maintain User'){
+      navigate('/Register');
     }
   };
 

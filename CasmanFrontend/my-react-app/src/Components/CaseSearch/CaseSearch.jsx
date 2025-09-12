@@ -86,14 +86,14 @@ const handleRowClick = async (item) => {
 
   return (
     <div className="container">
-      <CaseHeader
+      {/* <CaseHeader
         caseId={caseData?.caseId}
         subId={caseData?.subId}
         status={caseData?.status}
         liability={caseData?.liability}
         handler={caseData?.handler}
         practitioner={caseData?.practitioner}
-      />
+      /> */}
 
       <h2>🔎 Search Case Details</h2>
 
@@ -122,6 +122,8 @@ const handleRowClick = async (item) => {
 
       {results.length > 0 && (
         <>
+        <div className='table-wrapper'>
+          {loading && <div className="loading-overlay">Loading...</div>}
           <table className="case-table">
             <thead>
               <tr>
@@ -147,11 +149,13 @@ const handleRowClick = async (item) => {
       <td>{item.userId}</td>
       <td>{item.legalCaseDocumentStatus}</td>
     </tr>
+    
   ))}
             </tbody>
           </table>
+          </div>
 
-          {/* Pagination Controls */}
+        
           <div className="pagination">
             <button
               disabled={pageNumber === 1}

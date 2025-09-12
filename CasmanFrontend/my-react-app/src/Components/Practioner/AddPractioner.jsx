@@ -121,6 +121,7 @@ const AddPractitioner = () => {
       setFormData({
         caseId: caseData.caseId || "",
         subsidId: caseData.subsidId || "",
+        subsidId: caseData.subsidId || "",
         pracNum: "",
         surName: "",
         foreName: "",
@@ -149,14 +150,14 @@ const AddPractitioner = () => {
 
   return (
     <div className="form-container">
-      <CaseHeader
+      {/* <CaseHeader
         caseId={caseData.caseId}
         subId={caseData.subId}
         status={caseData.status}
         liability={caseData.liability}
         handler={caseData.handler}
         practitioner={caseData.practitioner}
-      />
+      /> */}
 
       <h2>Add Practitioner</h2>
       <form onSubmit={handleSubmit} className="prac-form">

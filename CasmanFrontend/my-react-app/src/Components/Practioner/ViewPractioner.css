@@ -28,7 +28,18 @@
   font-size: 1rem;
 }
 
-.prac-table th,
+/* Table header */
+.prac-table th {
+  background-color: #5665e2;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* Table body */
 .prac-table td {
   padding: 12px 10px;
   text-align: center;
